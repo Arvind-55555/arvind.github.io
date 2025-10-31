@@ -16,10 +16,10 @@ This repository includes the following:
 ###Data Visualization: Use of libraries to create meaningful visual representations of data.
 
 ##Technologies Used
-Python
-Jupyter Notebook
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Scikit-learn
+* Python
+* Jupyter Notebook
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
