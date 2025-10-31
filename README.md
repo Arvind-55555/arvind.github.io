@@ -15,7 +15,7 @@ This repository includes the following:
 - ### Machine Learning Models: Implementation of various algorithms for classification, regression, and clustering tasks.
 - ### Data Visualization: Use of libraries to create meaningful visual representations of data.
 
-##Technologies Used
+## Technologies Used
 * Python
 * Jupyter Notebook
 * Pandas
