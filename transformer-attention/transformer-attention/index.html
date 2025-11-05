@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attention Is All You Need — Interactive Explainer</title>
+
+  <!-- TailwindCSS for clean layout -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- Plotly.js for attention visualization -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <style>
+    code { background-color: #f8f9fa; padding: 2px 4px; border-radius: 4px; }
+    pre { background: #f4f4f4; padding: 10px; border-radius: 8px; overflow-x: auto; }
+    .formula { font-family: 'Cambria Math', serif; font-size: 1.1em; }
+    .plot-container { margin: 30px auto; width: 100%; max-width: 650px; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+  <div class="max-w-5xl mx-auto py-10 px-6">
+    <h1 class="text-4xl font-bold mb-6">Attention Is All You Need — Interactive Explainer</h1>
+    <p class="mb-8">
+      Explore the Transformer’s <strong>Multi-Head Attention</strong> mechanism with interactive attention maps and
+      side-by-side math + code explanations.
+    </p>
+
+    <!-- Section 1: Scaled Dot-Product Attention -->
+    <h2 class="text-2xl font-semibold mt-10 mb-3">1. Scaled Dot-Product Attention</h2>
+    <p>
+      Given query (Q), key (K), and value (V) matrices:
+    </p>
+    <p class="formula text-center my-4">
+      Attention(Q, K, V) = softmax( (QKᵀ) / √dₖ ) V
+    </p>
+
+    <pre><code class="language-python">
+scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
+attn = torch.softmax(scores, dim=-1)
+output = torch.matmul(attn, V)
+    </code></pre>
+
+    <p>
+      The attention weights indicate how much focus each token gives to others in the sequence.
+    </p>
+
+    <!-- Section 2: Multi-Head Attention -->
+    <h2 class="text-2xl font-semibold mt-10 mb-3">2. Multi-Head Attention</h2>
+    <p>
+      Instead of one single attention, Multi-Head Attention projects inputs into multiple subspaces:
+    </p>
+
+    <p class="formula text-center my-4">
+      MultiHead(Q, K, V) = Concat(head₁, ..., headₕ) Wᴼ
+    </p>
+
+    <p>
+      Each head captures a different type of relationship between tokens.
+    </p>
+
+    <pre><code class="language-python">
+class MultiHeadAttention(nn.Module):
+    def __init__(self, heads, d_model):
+        super().__init__()
+        self.d_k = d_model // heads
+        self.heads = heads
+        self.q_linear = nn.Linear(d_model, d_model)
+        self.k_linear = nn.Linear(d_model, d_model)
+        self.v_linear = nn.Linear(d_model, d_model)
+        self.fc = nn.Linear(d_model, d_model)
+    </code></pre>
+
+    <!-- Interactive Plot -->
+    <h3 class="text-xl font-semibold mt-8 mb-3 text-center">🎯 Attention Map Explorer</h3>
+    <p class="text-center mb-4">
+      Select a head and hover over the heatmap to see how each token attends to others.
+    </p>
+
+    <div class="flex justify-center mb-4 space-x-4">
+      <div>
+        <label for="layerSelect" class="block font-semibold text-gray-700 text-sm mb-1">Layer</label>
+        <select id="layerSelect" class="border rounded px-2 py-1">
+          <option value="0">Layer 1</option>
+          <option value="1">Layer 2</option>
+          <option value="2">Layer 3</option>
+        </select>
+      </div>
+      <div>
+        <label for="headSelect" class="block font-semibold text-gray-700 text-sm mb-1">Head</label>
+        <select id="headSelect" class="border rounded px-2 py-1">
+          <option value="0">Head 1</option>
+          <option value="1">Head 2</option>
+          <option value="2">Head 3</option>
+          <option value="3">Head 4</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="attentionPlot" class="plot-container"></div>
+
+    <!-- Section 3: Positional Encoding -->
+    <h2 class="text-2xl font-semibold mt-10 mb-3">3. Positional Encoding</h2>
+    <p>
+      Injects sequence order via sine and cosine patterns:
+    </p>
+    <p class="formula text-center my-4">
+      PE(pos, 2i) = sin(pos / 10000^(2i / dₘₒdₑₗ)), &nbsp;&nbsp;
+      PE(pos, 2i+1) = cos(pos / 10000^(2i / dₘₒdₑₗ))
+    </p>
+
+    <pre><code class="language-python">
+class PositionalEncoding(nn.Module):
+    def __init__(self, d_model, max_len=5000):
+        super().__init__()
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(0, max_len).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, d_model, 2) * (-math.log(10000.0) / d_model))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+    </code></pre>
+
+    <hr class="my-10" />
+    <p class="text-center text-gray-500">© 2025 Arvind | Built with ❤️ using Transformers + Plotly</p>
+  </div>
+
+  <!-- Interactive JS -->
+  <script>
+    // Example token labels
+    const tokens = ['[CLS]', 'The', 'cat', 'sat', 'on', 'the', 'mat', '.'];
+
+    // Simulated attention data (3 layers × 4 heads)
+    const attentionData = Array.from({ length: 3 }, () =>
+      Array.from({ length: 4 }, () =>
+        Array.from({ length: tokens.length }, () =>
+          Array.from({ length: tokens.length }, () => Math.random())
+        )
+      )
+    );
+
+    function drawAttention(layer, head) {
+      const z = attentionData[layer][head];
+      const data = [
+        {
+          z: z,
+          x: tokens,
+          y: tokens,
+          type: 'heatmap',
+          colorscale: 'Viridis',
+          hoverongaps: false,
+        },
+      ];
+      const layout = {
+        title: `Layer ${layer + 1} — Head ${head + 1}`,
+        xaxis: { title: 'Key Tokens', side: 'top' },
+        yaxis: { title: 'Query Tokens', autorange: 'reversed' },
+        margin: { l: 80, r: 20, t: 80, b: 80 },
+      };
+      Plotly.newPlot('attentionPlot', data, layout, { responsive: true });
+    }
+
+    document.getElementById('layerSelect').addEventListener('change', (e) => {
+      const layer = parseInt(e.target.value);
+      const head = parseInt(document.getElementById('headSelect').value);
+      drawAttention(layer, head);
+    });
+
+    document.getElementById('headSelect').addEventListener('change', (e) => {
+      const head = parseInt(e.target.value);
+      const layer = parseInt(document.getElementById('layerSelect').value);
+      drawAttention(layer, head);
+    });
+
+    // Initial draw
+    drawAttention(0, 0);
+  </script>
+</body>
+</html>
