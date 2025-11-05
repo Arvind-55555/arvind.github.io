@@ -3,35 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Attention Is All You Need — Interactive Explainer</title>
-
-  <!-- TailwindCSS for clean layout -->
+  <title>Attention Is All You Need — Interactive Transformer</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
-  <!-- Plotly.js for attention visualization -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
   <style>
-    code { background-color: #f8f9fa; padding: 2px 4px; border-radius: 4px; }
-    pre { background: #f4f4f4; padding: 10px; border-radius: 8px; overflow-x: auto; }
-    .formula { font-family: 'Cambria Math', serif; font-size: 1.1em; }
-    .plot-container { margin: 30px auto; width: 100%; max-width: 650px; }
+    code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
+    pre { background: #f8f8f8; padding: 10px; border-radius: 8px; overflow-x: auto; }
+    .formula { font-family: 'Cambria Math', serif; font-size: 1.05em; }
+    .plot-container { margin: 2rem auto; width: 100%; max-width: 700px; }
   </style>
 </head>
+
 <body class="bg-gray-50 text-gray-900 leading-relaxed">
   <div class="max-w-5xl mx-auto py-10 px-6">
-    <h1 class="text-4xl font-bold mb-6">Attention Is All You Need — Interactive Explainer</h1>
-    <p class="mb-8">
-      Explore the Transformer’s <strong>Multi-Head Attention</strong> mechanism with interactive attention maps and
-      side-by-side math + code explanations.
+    <h1 class="text-4xl font-bold mb-6">Attention Is All You Need — Interactive Transformer</h1>
+
+    <p class="mb-6">
+      A modular <strong>Transformer implementation</strong> inspired by
+      <a href="https://arxiv.org/abs/1706.03762" class="text-blue-600 underline">Vaswani et al. (2017)</a>.
+      Explore the architecture, math, and interactive attention visualization below.
     </p>
 
-    <!-- Section 1: Scaled Dot-Product Attention -->
+    <img src="docs/assets/Attention.png" alt="Transformer Architecture" class="rounded-lg shadow-lg mb-8"/>
+
     <h2 class="text-2xl font-semibold mt-10 mb-3">1. Scaled Dot-Product Attention</h2>
-    <p>
-      Given query (Q), key (K), and value (V) matrices:
-    </p>
-    <p class="formula text-center my-4">
+    <p class="formula text-center mb-3">
       Attention(Q, K, V) = softmax( (QKᵀ) / √dₖ ) V
     </p>
 
@@ -41,40 +38,13 @@ attn = torch.softmax(scores, dim=-1)
 output = torch.matmul(attn, V)
     </code></pre>
 
-    <p>
-      The attention weights indicate how much focus each token gives to others in the sequence.
-    </p>
-
-    <!-- Section 2: Multi-Head Attention -->
     <h2 class="text-2xl font-semibold mt-10 mb-3">2. Multi-Head Attention</h2>
     <p>
-      Instead of one single attention, Multi-Head Attention projects inputs into multiple subspaces:
+      The Transformer uses <strong>multiple attention heads</strong> to capture different relationships across tokens:
     </p>
 
-    <p class="formula text-center my-4">
+    <p class="formula text-center my-3">
       MultiHead(Q, K, V) = Concat(head₁, ..., headₕ) Wᴼ
-    </p>
-
-    <p>
-      Each head captures a different type of relationship between tokens.
-    </p>
-
-    <pre><code class="language-python">
-class MultiHeadAttention(nn.Module):
-    def __init__(self, heads, d_model):
-        super().__init__()
-        self.d_k = d_model // heads
-        self.heads = heads
-        self.q_linear = nn.Linear(d_model, d_model)
-        self.k_linear = nn.Linear(d_model, d_model)
-        self.v_linear = nn.Linear(d_model, d_model)
-        self.fc = nn.Linear(d_model, d_model)
-    </code></pre>
-
-    <!-- Interactive Plot -->
-    <h3 class="text-xl font-semibold mt-8 mb-3 text-center">🎯 Attention Map Explorer</h3>
-    <p class="text-center mb-4">
-      Select a head and hover over the heatmap to see how each token attends to others.
     </p>
 
     <div class="flex justify-center mb-4 space-x-4">
@@ -83,7 +53,6 @@ class MultiHeadAttention(nn.Module):
         <select id="layerSelect" class="border rounded px-2 py-1">
           <option value="0">Layer 1</option>
           <option value="1">Layer 2</option>
-          <option value="2">Layer 3</option>
         </select>
       </div>
       <div>
@@ -99,38 +68,28 @@ class MultiHeadAttention(nn.Module):
 
     <div id="attentionPlot" class="plot-container"></div>
 
-    <!-- Section 3: Positional Encoding -->
-    <h2 class="text-2xl font-semibold mt-10 mb-3">3. Positional Encoding</h2>
-    <p>
-      Injects sequence order via sine and cosine patterns:
-    </p>
-    <p class="formula text-center my-4">
-      PE(pos, 2i) = sin(pos / 10000^(2i / dₘₒdₑₗ)), &nbsp;&nbsp;
-      PE(pos, 2i+1) = cos(pos / 10000^(2i / dₘₒdₑₗ))
-    </p>
+    <h2 class="text-2xl font-semibold mt-10 mb-3">3. Train and Export</h2>
+    <pre><code class="language-bash">
+# Train a copy task
+python -m src.train --epochs 3
 
-    <pre><code class="language-python">
-class PositionalEncoding(nn.Module):
-    def __init__(self, d_model, max_len=5000):
-        super().__init__()
-        pe = torch.zeros(max_len, d_model)
-        position = torch.arange(0, max_len).unsqueeze(1)
-        div_term = torch.exp(torch.arange(0, d_model, 2) * (-math.log(10000.0) / d_model))
-        pe[:, 0::2] = torch.sin(position * div_term)
-        pe[:, 1::2] = torch.cos(position * div_term)
+# Export attention weights
+python -m src.export_attention_json --checkpoint checkpoints/ckpt_epoch3.pt --out attention.json
     </code></pre>
 
     <hr class="my-10" />
     <p class="text-center text-gray-500">
-      © 2025 Arvind | Built with ❤️ using Transformers + Plotly<br>
+      © 2025 Arvind | <a href="https://github.com/Arvind-55555/transformer-attention" class="text-blue-600 underline">View on GitHub</a> |
       <a href="https://arvind-55555.github.io/arvind.github.io/" class="text-blue-600 underline">← Back to Portfolio</a>
     </p>
   </div>
 
-  <!-- Interactive JS -->
   <script>
+    // Tokens example
     const tokens = ['[CLS]', 'The', 'cat', 'sat', 'on', 'the', 'mat', '.'];
-    const attentionData = Array.from({ length: 3 }, () =>
+
+    // Simulated attention data for visualization
+    const attentionData = Array.from({ length: 2 }, () =>
       Array.from({ length: 4 }, () =>
         Array.from({ length: tokens.length }, () =>
           Array.from({ length: tokens.length }, () => Math.random())
@@ -146,13 +105,12 @@ class PositionalEncoding(nn.Module):
         y: tokens,
         type: 'heatmap',
         colorscale: 'Viridis',
-        hoverongaps: false,
       }];
       const layout = {
         title: `Layer ${layer + 1} — Head ${head + 1}`,
         xaxis: { title: 'Key Tokens', side: 'top' },
         yaxis: { title: 'Query Tokens', autorange: 'reversed' },
-        margin: { l: 80, r: 20, t: 80, b: 80 },
+        margin: { l: 70, r: 20, t: 80, b: 70 },
       };
       Plotly.newPlot('attentionPlot', data, layout, { responsive: true });
     }
@@ -163,6 +121,7 @@ class PositionalEncoding(nn.Module):
     document.getElementById('headSelect').addEventListener('change', (e) => {
       drawAttention(+document.getElementById('layerSelect').value, +e.target.value);
     });
+
     drawAttention(0, 0);
   </script>
 </body>
