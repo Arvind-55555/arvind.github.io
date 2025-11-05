@@ -28,17 +28,17 @@ This portfolio showcases a range of **AI, ML, and Data Science** projects, focus
 
 ## 💡 Featured Projects
 
-- 🔍 **[Transformer Attention Visualization](https://arvind-55555.github.io/arvind.github.io/transformer-attention/)**  
-  Explore interactive attention maps that reveal how Transformer models interpret input sequences.
+- 🔍 **Transformer Attention Visualization**
+    - Explore interactive attention maps that reveal how Transformer models interpret input sequences.
 
 - 🌎 **GeoAI Model for Environmental Analysis**  
-  A geospatial ML model integrating satellite imagery and environmental datasets to predict land-use and vegetation patterns.
+    - A geospatial ML model integrating satellite imagery and environmental datasets to predict land-use and vegetation patterns.
 
 - 🚛 **Pollution Reduction via Heavy Vehicle Upgrades**  
-  Predictive modeling project focused on optimizing environmental policies through data-driven insights.
+    - Predictive modeling project focused on optimizing environmental policies through data-driven insights.
 
 - 📈 **EDA Dashboards**  
-  Data storytelling and visualization using Python tools like Plotly, Seaborn, and Matplotlib.
+    - Data storytelling and visualization using Python tools like Plotly, Seaborn, and Matplotlib.
 
 > 🧭 Explore more at: [**arvind.github.io**](https://arvind-55555.github.io/arvind.github.io/)
 
@@ -74,5 +74,5 @@ Then open http://localhost:8000 in your browser.
 📬 Contact
 I’m always open to collaborations, projects, and research discussions!
 - 🌐 Portfolio: [arvind.github.io](https://arvind-55555.github.io/arvind.github.io/)
-- 💼 LinkedIn: [Linkedin](www.linkedin.com/in/arvind55555)
+- 💼 LinkedIn: [Linkedin](https://www.linkedin.com/in/arvind55555)
 - 🧠 GitHub: [Github](https://github.com/Arvind-55555)
