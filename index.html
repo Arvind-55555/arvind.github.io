@@ -1,417 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arvind Saane | Data Scientist & AI Engineer</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arvind Saane | AI & Data Science Portfolio</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f3f4f6;
+      color: #1e293b;
+      font-family: 'Inter', sans-serif;
+    }
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1f2937;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .project-card {
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 1.25rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+    .badge {
+      background-color: #e5e7eb;
+      color: #374151;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .project-link {
+      color: #2563eb;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .project-link:hover {
+      color: #1e40af;
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body>
-    <!-- Navigation -->  
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <h2>Arvind Saane</h2>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+<body class="antialiased">
+
+<!-- Navigation -->
+<nav class="bg-white shadow-md fixed w-full z-50">
+  <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-gray-800">Arvind Saane</h1>
+    <ul class="flex space-x-6 text-gray-600">
+      <li><a href="#home" class="hover:text-gray-900">Home</a></li>
+      <li><a href="#about" class="hover:text-gray-900">About</a></li>
+      <li><a href="#projects" class="hover:text-gray-900">Projects</a></li>
+      <li><a href="#skills" class="hover:text-gray-900">Skills</a></li>
+      <li><a href="#contact" class="hover:text-gray-900">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="pt-24 bg-gradient-to-r from-blue-100 to-green-100">
+  <div class="max-w-6xl mx-auto text-center py-16 px-6">
+    <h1 class="text-4xl font-bold text-gray-800 mb-2">Arvind Saane</h1>
+    <h2 class="text-xl text-gray-700 mb-4">AI & ML Engineer </h2>
+    <p class="text-gray-600 max-w-2xl mx-auto">Turning data into sustainable and intelligent solutions — from industrial systems to environmental protection.</p>
+    <div class="mt-6">
+      <a href="#projects" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 mr-2">View My Work</a>
+      <a href="#contact" class="bg-gray-200 text-gray-800 px-5 py-2 rounded-lg hover:bg-gray-300">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="py-16 bg-white">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="section-title">About Me</h2>
+    <p class="text-gray-600 leading-relaxed">
+      I’m a data-driven professional with over 8 years of experience in AI model development, machine learning, and environmental analytics.
+      My work focuses on building interpretable, scalable, and sustainable AI systems that bridge technology and environmental responsibility.
+    </p>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="py-16 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="section-title">Featured Projects</h2>
+
+    <!-- AI Systems & Model Explainability -->
+    <h3 class="text-2xl font-semibold text-gray-700 mt-12 mb-6 border-b pb-2">AI Systems & Model Explainability</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- RAG Math Routing Agent -->
+      <div class="project-card">
+        <h4 class="font-semibold text-lg mb-1">RAG Math Routing Agent</h4>
+        <span class="badge">AI Agent System</span>
+        <p class="text-gray-600 my-2">Intelligent RAG-based agent routing math problems across a knowledge base, web search (MCP), and DSPy reasoning with an interactive simulation.</p>
+        <div class="project-links">
+          <a href="https://github.com/Arvind-55555/RAG-Math-Routing-Agent" class="project-link"><i class="fab fa-github"></i> Code</a> |
+          <a href="https://arvind-55555.github.io/arvind.github.io/rag-math-routing-agent/" class="project-link"><i class="fas fa-rocket"></i> Demo</a>
         </div>
-    </nav>
+      </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>Arvind Saane</h1>
-                <h2>Data Scientist | AI & ML Engineer | Environmental & Industrial Analytics</h2>
-                <p>Transforming complex datasets into actionable insights for sustainable industrial innovation</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                </div>
-            </div>
+      <!-- Transformer Attention Explainer -->
+      <div class="project-card">
+        <h4 class="font-semibold text-lg mb-1">Transformer Attention Explainer</h4>
+        <span class="badge">Deep Learning</span>
+        <p class="text-gray-600 my-2">An interactive implementation of “Attention Is All You Need,” showcasing code-level explanations and mathematical expressions of the Transformer model.</p>
+        <div class="project-links">
+          <a href="https://github.com/Arvind-55555/transformer-attention" class="project-link"><i class="fab fa-github"></i> Code</a> |
+          <a href="https://arvind-55555.github.io/arvind.github.io/transformer-attention/" class="project-link"><i class="fas fa-rocket"></i> Demo</a>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Results-driven Data Scientist with 8+ years of cross-industry experience in AI model development, machine learning, and environmental data analytics.</p>
-                    <p>Adept at transforming complex datasets into actionable insights that optimize industrial performance, sustainability, and business decision-making.</p>
-                    <p>Skilled in designing, deploying, and scaling ML models across domains like predictive maintenance, NLP, and GIS-based analytics.</p>
-                </div>
-                <div class="about-stats">
-                    <div class="stat">
-                        <h3>8+</h3>
-                        <p>Years Experience</p>
-                    </div>
-                    <div class="stat">
-                        <h3>50+</h3>
-                        <p>Projects Completed</p>
-                    </div>
-                    <div class="stat">
-                        <h3>15+</h3>
-                        <p>ML Models Deployed</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Industrial & Predictive Analytics -->
+    <h3 class="text-2xl font-semibold text-gray-700 mt-12 mb-6 border-b pb-2">Industrial & Predictive Analytics</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Predictive Maintenance -->
+      <div class="project-card">
+        <h4 class="font-semibold text-lg mb-1">Predictive Maintenance for Industrial Equipment</h4>
+        <span class="badge">Industrial AI</span>
+        <p class="text-gray-600 my-2">Developed ML pipeline predicting equipment failures, reducing downtime by 30% and maintenance costs by 15%.</p>
+      </div>
+
+      <!-- E-Commerce Recommender System -->
+      <div class="project-card">
+        <h4 class="font-semibold text-lg mb-1">E-Commerce Recommender System</h4>
+        <span class="badge">ML Engineering</span>
+        <p class="text-gray-600 my-2">Designed hybrid recommender model increasing CTR by 40% and user engagement by 25% through personalized product suggestions.</p>
+      </div>
+    </div>
+
+    <!-- Geospatial & Environmental Intelligence -->
+    <h3 class="text-2xl font-semibold text-gray-700 mt-12 mb-6 border-b pb-2">Geospatial & Environmental Intelligence</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Environmental Analysis -->
+      <div class="project-card">
+        <h4 class="font-semibold text-lg mb-1">Environmental Analysis with QGIS & GEE</h4>
+        <span class="badge">Sustainability</span>
+        <p class="text-gray-600 my-2">Simulated visualization of deforestation impact using NDVI trends from satellite imagery, protecting 100+ hectares of forest through data-driven conservation.</p>
+        <div class="project-links">
+          <a href="https://github.com/Arvind-55555/arvind.github.io/tree/main/environmental-analysis" class="project-link"><i class="fab fa-github"></i> Code</a> |
+          <a href="https://arvind-55555.github.io/arvind.github.io/environmental-analysis/" class="project-link"><i class="fas fa-globe"></i> Demo</a>
         </div>
-    </section>
+      </div>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Predictive Maintenance for Industrial Equipment</h3>
-                        <span class="badge">Industrial AI</span>
-                    </div>
-                    <p class="project-description">Developed ML pipeline predicting equipment failures, reducing downtime by 30% and maintenance costs by 15%.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">PySpark</span>
-                        <span class="tech-tag">MLflow</span>
-                    </div>
-                    <div class="project-impact">
-                        <div class="impact-item">
-                            <i class="fas fa-chart-line"></i>
-                            <span>30% downtime reduction</span>
-                        </div>
-                        <div class="impact-item">
-                            <i class="fas fa-dollar-sign"></i>
-                            <span>15% cost savings</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        <a href="#" class="project-link"><i class="fas fa-chart-bar"></i> Case Study</a>
-                    </div>
-                </div>
+      <!-- PFAS Detection -->
+      <div class="project-card">
+        <h4 class="font-semibold text-lg mb-1">PFAS Contaminant Detection</h4>
+        <span class="badge">Environmental AI</span>
+        <p class="text-gray-600 my-2">Improved water contamination detection accuracy by 30% using advanced ML classification models for environmental monitoring and safety.</p>
+      </div>
+    </div>
 
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>NLP Sentiment Analysis System</h3>
-                        <span class="badge">Hugging Face</span>
-                    </div>
-                    <p class="project-description">Built GPT/BERT-based sentiment classifier, improving customer satisfaction scores by 18% through real-time feedback analysis.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Transformers</span>
-                        <span class="tech-tag">BERT</span>
-                        <span class="tech-tag">PyTorch</span>
-                    </div>
-                    <div class="project-impact">
-                        <div class="impact-item">
-                            <i class="fas fa-smile"></i>
-                            <span>18% satisfaction improvement</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        <a href="#" class="project-link"><i class="fab fa-huggingface"></i> Live Demo</a>
-                    </div>
-                </div>
+    <!-- Language & Market Intelligence -->
+    <h3 class="text-2xl font-semibold text-gray-700 mt-12 mb-6 border-b pb-2">Language & Market Intelligence</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- NLP Sentiment -->
+      <div class="project-card">
+        <h4 class="font-semibold text-lg mb-1">NLP Sentiment Analysis System</h4>
+        <span class="badge">NLP</span>
+        <p class="text-gray-600 my-2">Developed GPT/BERT-based sentiment classifier to analyze customer feedback, improving satisfaction scores by 18% through real-time insights.</p>
+      </div>
 
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>E-Commerce Recommender System</h3>
-                        <span class="badge">ML Engineering</span>
-                    </div>
-                    <p class="project-description">Designed hybrid recommender model increasing CTR by 40% and user engagement by 25% through personalized product suggestions.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Scikit-learn</span>
-                        <span class="tech-tag">AWS</span>
-                        <span class="tech-tag">Redis</span>
-                    </div>
-                    <div class="project-impact">
-                        <div class="impact-item">
-                            <i class="fas fa-mouse-pointer"></i>
-                            <span>40% CTR increase</span>
-                        </div>
-                        <div class="impact-item">
-                            <i class="fas fa-users"></i>
-                            <span>25% engagement growth</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        <a href="#" class="project-link"><i class="fas fa-rocket"></i> Demo</a>
-                    </div>
-                </div>
+      <!-- Customer Segmentation -->
+      <div class="project-card">
+        <h4 class="font-semibold text-lg mb-1">Customer Segmentation & Market Analysis</h4>
+        <span class="badge">Analytics</span>
+        <p class="text-gray-600 my-2">Segmented customers with clustering and association rule learning, boosting cross-sell revenue by 25% via targeted campaigns.</p>
+      </div>
+    </div>
 
-                <!-- Project 4 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Customer Segmentation & Market Analysis</h3>
-                        <span class="badge">Analytics</span>
-                    </div>
-                    <p class="project-description">Segmented customers with clustering and association rule learning, boosting cross-sell revenue by 25% through targeted campaigns.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Clustering</span>
-                        <span class="tech-tag">Tableau</span>
-                        <span class="tech-tag">SQL</span>
-                    </div>
-                    <div class="project-impact">
-                        <div class="impact-item">
-                            <i class="fas fa-chart-pie"></i>
-                            <span>25% revenue boost</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        <a href="#" class="project-link"><i class="fas fa-chart-line"></i> Dashboard</a>
-                    </div>
-                </div>
+    <div class="text-center mt-12">
+      <a href="https://github.com/Arvind-55555?tab=repositories" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">View All Projects on GitHub</a>
+    </div>
+  </div>
+</section>
 
-                <!-- Project 5 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Environmental Analysis with QGIS & GEE</h3>
-                        <span class="badge">Sustainability</span>
-                    </div>
-                    <p class="project-description">Analyzed deforestation impact using geospatial data, leading to protection of 100+ hectares of forest area through data-driven conservation efforts.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">QGIS</span>
-                        <span class="tech-tag">Google Earth Engine</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">GeoPandas</span>
-                    </div>
-                    <div class="project-impact">
-                        <div class="impact-item">
-                            <i class="fas fa-tree"></i>
-                            <span>100+ hectares protected</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        <a href="#" class="project-link"><i class="fas fa-globe-americas"></i> Visualization</a>
-                    </div>
-                </div>
+<!-- Skills -->
+<section id="skills" class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-gray-700 text-center">
+      <div>
+        <h4 class="font-semibold mb-2"><i class="fas fa-code"></i> Programming</h4>
+        <p>Python • SQL • R • PySpark • Scala</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2"><i class="fas fa-brain"></i> ML Frameworks</h4>
+        <p>TensorFlow • PyTorch • Scikit-learn • Hugging Face • XGBoost</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2"><i class="fas fa-cloud"></i> Tools</h4>
+        <p>AWS • Azure ML • MLflow • Docker • Kubernetes • Git</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2"><i class="fas fa-globe"></i> Domains</h4>
+        <p>Predictive Maintenance • GeoAI • NLP • Environmental Analytics • Industrial IoT</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <!-- Project 6 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>PFAS Contaminant Detection</h3>
-                        <span class="badge">Environmental AI</span>
-                    </div>
-                    <p class="project-description">Improved water contamination detection accuracy by 30% using advanced classification models for environmental monitoring and public safety.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Classification</span>
-                        <span class="tech-tag">Scikit-learn</span>
-                        <span class="tech-tag">Pandas</span>
-                    </div>
-                    <div class="project-impact">
-                        <div class="impact-item">
-                            <i class="fas fa-tint"></i>
-                            <span>30% accuracy improvement</span>
-                        </div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        <a href="#" class="project-link"><i class="fas fa-vial"></i> Research</a>
-                    </div>
-                </div>
+<!-- Contact -->
+<section id="contact" class="py-16 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="text-gray-600 mb-6">Open to collaborations and AI-driven sustainability initiatives.</p>
+    <p><i class="fas fa-envelope"></i> arvind.saane.111@gmail.com</p>
+    <p><i class="fab fa-linkedin"></i> linkedin.com/in/arvind55555</p>
+    <p><i class="fab fa-github"></i> github.com/Arvind-55555</p>
+  </div>
+</section>
 
-                <!-- Project 7 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Attention Is All You Need — Transformer Architecture</h3>
-                        <span class="badge">Deep Learning</span>
-                    </div>
-                    <p class="project-description">
-                        Developed a modular and interactive Transformer model inspired by Vaswani et al. (2017),
-                        featuring real-time attention visualization and mathematical interpretation of the model layers.
-                    </p>
-                
-                    <div class="project-tech">
-                        <span class="tech-tag">PyTorch</span>
-                        <span class="tech-tag">Transformer</span>
-                        <span class="tech-tag">Attention Mechanism</span>
-                        <span class="tech-tag">Plotly.js</span>
-                    </div>
-                
-                    <div class="project-impact">
-                        <div class="impact-item">
-                            <i class="fas fa-brain"></i>
-                            <span>Interactive Attention Explorer</span>
-                        </div>
-                        <div class="impact-item">
-                            <i class="fas fa-code"></i>
-                            <span>Code-level Explanation</span>
-                        </div>
-                    </div>
-                
-                    <div class="project-links">
-                        <a href="https://arvind-55555.github.io/Transformer_Attention/" 
-                           class="project-link"><i class="fab fa-github"></i> Code</a>
-                        <a href="https://arvind-55555.github.io/arvind.github.io/transformer-attention/" 
-                           class="project-link"><i class="fas fa-rocket"></i> Live Demo</a>
-                    </div>
-                </div>
+<footer class="bg-white py-6 text-center text-gray-500">
+  © 2025 Arvind Saane. All Rights Reserved.
+</footer>
 
-
-                <!-- Project 8 -->
-                <div class="project-card">
-                  <div class="project-header">
-                    <h3>RAG Math Routing Agent</h3>
-                    <span class="badge">AI Agent System</span>
-                  </div>
-                  <p class="project-description">
-                    Intelligent RAG-based agent that routes mathematical problems through knowledge base retrieval, web search, and DSPy reasoning, with real-time feedback learning.
-                  </p>
-                  <div class="project-tech">
-                    <span class="tech-tag">FastAPI</span>
-                    <span class="tech-tag">FAISS</span>
-                    <span class="tech-tag">DSPy</span>
-                    <span class="tech-tag">LangChain</span>
-                  </div>
-                  <div class="project-impact">
-                    <div class="impact-item">
-                      <i class="fas fa-robot"></i>
-                      <span>Adaptive Routing Engine</span>
-                    </div>
-                    <div class="impact-item">
-                      <i class="fas fa-book"></i>
-                      <span>Auto-Learning Knowledge Base</span>
-                    </div>
-                  </div>
-                  <div class="project-links">
-                    <a href="https://github.com/Arvind-55555/RAG-Math-Routing-Agent" class="project-link">
-                      <i class="fab fa-github"></i> Code
-                    </a>
-                    <a href="https://arvind-55555.github.io/arvind.github.io/rag-math-routing-agent/" class="project-link">
-                      <i class="fas fa-rocket"></i> Live Demo
-                    </a>
-                  </div>
-                </div>
-
-                
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-grid">
-                
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Programming</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">Python</span>
-                        <span class="skill-item">SQL</span>
-                        <span class="skill-item">R</span>
-                        <span class="skill-item">PySpark</span>
-                        <span class="skill-item">Scala</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> ML Frameworks</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">TensorFlow</span>
-                        <span class="skill-item">PyTorch</span>
-                        <span class="skill-item">Scikit-learn</span>
-                        <span class="skill-item">Hugging Face</span>
-                        <span class="skill-item">XGBoost</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-cloud"></i> Tools & Platforms</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">AWS SageMaker</span>
-                        <span class="skill-item">Azure ML</span>
-                        <span class="skill-item">MLflow</span>
-                        <span class="skill-item">Docker</span>
-                        <span class="skill-item">Kubernetes</span>
-                        <span class="skill-item">Git</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-chart-bar"></i> Domain Expertise</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">Predictive Maintenance</span>
-                        <span class="skill-item">Environmental Analytics</span>
-                        <span class="skill-item">Industrial IoT</span>
-                        <span class="skill-item">GIS Analysis</span>
-                        <span class="skill-item">Time Series</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h3>Email</h3>
-                            <p>arvind.saane.111@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-linkedin"></i>
-                        <div>
-                            <h3>LinkedIn</h3>
-                            <p>linkedin.com/in/arvind55555</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github"></i>
-                        <div>
-                            <h3>GitHub</h3>
-                            <p>github.com/Arvind-55555</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-cta">
-                    <h3>Let's Work Together</h3>
-                    <p>I'm always interested in new opportunities and collaborations in AI and data science.</p>
-                    <a href="mailto:arvind.saane.111@gmail.com" class="btn btn-primary">Send Email</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Arvind Saane. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
 </body>
-
 </html>
-
-
-
