@@ -121,15 +121,15 @@ class PositionalEncoding(nn.Module):
     </code></pre>
 
     <hr class="my-10" />
-    <p class="text-center text-gray-500">© 2025 Arvind | Built with ❤️ using Transformers + Plotly</p>
+    <p class="text-center text-gray-500">
+      © 2025 Arvind | Built with ❤️ using Transformers + Plotly<br>
+      <a href="https://arvind-55555.github.io/arvind.github.io/" class="text-blue-600 underline">← Back to Portfolio</a>
+    </p>
   </div>
 
   <!-- Interactive JS -->
   <script>
-    // Example token labels
     const tokens = ['[CLS]', 'The', 'cat', 'sat', 'on', 'the', 'mat', '.'];
-
-    // Simulated attention data (3 layers × 4 heads)
     const attentionData = Array.from({ length: 3 }, () =>
       Array.from({ length: 4 }, () =>
         Array.from({ length: tokens.length }, () =>
@@ -140,16 +140,14 @@ class PositionalEncoding(nn.Module):
 
     function drawAttention(layer, head) {
       const z = attentionData[layer][head];
-      const data = [
-        {
-          z: z,
-          x: tokens,
-          y: tokens,
-          type: 'heatmap',
-          colorscale: 'Viridis',
-          hoverongaps: false,
-        },
-      ];
+      const data = [{
+        z: z,
+        x: tokens,
+        y: tokens,
+        type: 'heatmap',
+        colorscale: 'Viridis',
+        hoverongaps: false,
+      }];
       const layout = {
         title: `Layer ${layer + 1} — Head ${head + 1}`,
         xaxis: { title: 'Key Tokens', side: 'top' },
@@ -160,18 +158,11 @@ class PositionalEncoding(nn.Module):
     }
 
     document.getElementById('layerSelect').addEventListener('change', (e) => {
-      const layer = parseInt(e.target.value);
-      const head = parseInt(document.getElementById('headSelect').value);
-      drawAttention(layer, head);
+      drawAttention(+e.target.value, +document.getElementById('headSelect').value);
     });
-
     document.getElementById('headSelect').addEventListener('change', (e) => {
-      const head = parseInt(e.target.value);
-      const layer = parseInt(document.getElementById('layerSelect').value);
-      drawAttention(layer, head);
+      drawAttention(+document.getElementById('layerSelect').value, +e.target.value);
     });
-
-    // Initial draw
     drawAttention(0, 0);
   </script>
 </body>
