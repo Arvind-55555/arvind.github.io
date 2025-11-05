@@ -53,7 +53,7 @@ function simulatePipeline(query) {
       node.el.innerHTML = `<strong>${node.title}</strong><div class="text-sm text-gray-300 mt-1">${node.text}</div><div style="font-size:.75rem;color:#9ca3af;margin-top:.25rem">completed</div>`;
       // simulate branch: if KB hit, skip web+dspy
       if (node.id === 'kb') {
-        const kbHit = Math.random() &lt; 0.6; // 60% KB hit for demo
+        const kbHit = Math.random() < 0.6; // 60% KB hit for demo
         if (kbHit) {
           const hitEl = document.createElement('div');
           hitEl.className = 'stage';
@@ -112,7 +112,7 @@ function synthesizeAnswer(query) {
   return { answer_html: `Simulated solution for: <em>${escapeHtml(query)}</em> — steps: parse → retrieve → reason → finalize.`, sources: 'Web & KB (simulated)' };
 }
 
-function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escapeHtml(s){ return s.replace(/&/g,'&').replace(/</g,'<').replace(/>/g,'>'); }
 
 runBtn.addEventListener('click', ()=>{
   const q = questionInput.value;
