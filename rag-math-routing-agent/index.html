@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>RAG Math Routing Agent — Interactive Demo</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>
+  body { background: #0f172a; color: #e6eef8; }
+  .pane { background: #0b1220; border-radius: 8px; padding: 1rem; box-shadow: 0 6px 18px rgba(2,6,23,0.6); }
+  .left { width: 44%; }
+  .right { width: 56%; }
+  pre.hljs { background: #020617; border-radius: 6px; padding: 1rem; overflow:auto; }
+  .stage { padding: 0.5rem 0.75rem; border-radius: 6px; background:#071129; margin-bottom:0.5rem; }
+  .stage.running { background: linear-gradient(90deg,#0ea5a4,#60a5fa); color:#001; font-weight:700; }
+  .badge { background:#111827;color:#c7d2fe;padding:0.2rem 0.5rem;border-radius:999px;font-size:.75rem; }
+  .input-box { background:#071129;padding:0.75rem;border-radius:8px;border:1px solid #1f2937;}
+  .btn { background:#2563eb;color:white;padding:.5rem .75rem;border-radius:6px; }
+</style>
+</head>
+<body class="antialiased">
+  <div class="max-w-6xl mx-auto py-10 px-6">
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold text-white">RAG Math Routing Agent — Interactive Playground</h1>
+      <p class="text-gray-300">Simulated demo of the RAG Math Routing Agent pipeline. Enter a math question, watch the routing and retrieval steps, and see a generated solution (simulation).</p>
+    </header>
+
+    <div class="flex gap-6">
+      <!-- Interactive simulation column -->
+      <div class="pane left p-6">
+        <h2 class="text-xl font-semibold mb-3">Try it — Simulation</h2>
+
+        <div class="mb-3">
+          <label class="block text-sm text-gray-200 mb-1">Enter a math problem</label>
+          <div class="input-box">
+            <textarea id="question" rows="3" class="w-full bg-transparent text-white focus:outline-none" placeholder="e.g., Solve x^2 - 5x + 6 = 0"></textarea>
+          </div>
+        </div>
+
+        <div class="flex gap-2 items-center mb-4">
+          <button id="runBtn" class="btn">Run Simulation</button>
+          <button id="clearBtn" class="btn" style="background:#64748b">Clear</button>
+          <span class="ml-3 badge">Simulation (client-side)</span>
+        </div>
+
+        <div id="stages" aria-live="polite">
+          <!-- stages inserted by JS -->
+        </div>
+
+        <h3 class="mt-4 text-lg font-semibold">Result</h3>
+        <div id="result" class="mt-2 pane p-4" style="min-height:100px">Run the simulation to see the answer here.</div>
+      </div>
+
+      <!-- Explanation + code column -->
+      <div class="pane right p-6">
+        <h2 class="text-xl font-semibold mb-4">Architecture & Code Explanation</h2>
+
+        <section class="mb-4">
+          <h3 class="font-medium">System Architecture</h3>
+          <p class="text-gray-300">High-level components: API Gateway, Math Router, Knowledge Base, Web Search (MCP), DSPy reasoning engine, Feedback system.</p>
+          <div class="grid grid-cols-1 gap-2 mt-3">
+            <img src="assets/system_arch.png" alt="system" style="max-width:100%;border-radius:6px">
+            <img src="assets/core_service.png" alt="core" style="max-width:100%;border-radius:6px">
+            <img src="assets/data_flow.png" alt="dataflow" style="max-width:100%;border-radius:6px">
+          </div>
+        </section>
+
+        <section class="mb-4">
+          <h3 class="font-medium">Project Structure</h3>
+          <pre><code class="language-text">math-routing-agent/
+├─ math_agent/
+│  ├─ core.py          # orchestrates request -> routing -> solution
+│  ├─ routing_agent.py # routing & decision logic (KB vs Web vs DSPy)
+│  ├─ knowledge_base.py# FAISS embeddings & retrieval
+│  ├─ web_search.py    # MCP + web search adaptors
+│  └─ feedback_system.py # feedback storage & KB updater
+</code></pre>
+        </section>
+
+        <section class="mb-4">
+          <h3 class="font-medium">Code-by-code (Selected snippets)</h3>
+          <div style="max-height:360px; overflow:auto; padding-right:8px;">
+            <div class="mb-4">
+              <div class="text-sm text-gray-300 mb-2">Routing decision (high-level)</div>
+              <pre><code class="language-python">def route_request(query):
+    # 1) check knowledge base similarity threshold
+    hits = kb.search(query, k=5)
+    if hits and hits[0].score &gt; 0.8:
+        return 'knowledge', hits[0]
+    # 2) otherwise call web search (MCP) and DSPy reasoning
+    results = web_search.fetch(query)
+    return 'web', results</code></pre>
+            </div>
+
+            <div class="mb-4">
+              <div class="text-sm text-gray-300 mb-2">Exported attention / reasoning flow (DSPy)</div>
+              <pre><code class="language-python">def generate_solution(query, context):
+    # Build prompt with retrieved context and call LLM orchestrator
+    prompt = build_prompt(query, context)
+    answer = llm_orchestrator.call(prompt)
+    return answer</code></pre>
+            </div>
+
+            <div class="mb-4">
+              <div class="text-sm text-gray-300 mb-2">Feedback ingestion (simplified)</div>
+              <pre><code class="language-python">def ingest_feedback(solution_id, rating, corrected_solution=None):
+    db.insert_feedback(solution_id, rating, corrected_solution)
+    if rating &gt;= 4 and corrected_solution:
+        kb.upsert(corrected_solution)</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="font-medium">How the simulation works</h3>
+          <ol class="text-gray-300 list-decimal list-inside">
+            <li>Query parsing & intent detection</li>
+            <li>Knowledge Base lookup (FAISS)</li>
+            <li>Routing decision (KB / Web / DSPy)</li>
+            <li>Context assembly and LLM reasoning</li>
+            <li>Return structured solution + sources</li>
+          </ol>
+        </section>
+      </div>
+    </div>
+
+    <footer class="mt-8 text-gray-400 text-sm">
+      <div class="flex justify-between items-center">
+        <div>© 2025 Arvind Saane</div>
+        <div>
+          <a href="https://github.com/Arvind-55555/RAG-Math-Routing-Agent" target="_blank" class="text-blue-300">GitHub</a>
+          <span class="mx-2">•</span>
+          <a href="https://arvind-55555.github.io/arvind.github.io/" target="_blank" class="text-blue-300">Portfolio</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+<script src="scripts/agent_sim.js"></script>
+</body>
+</html>
