@@ -19,7 +19,7 @@ window.addEventListener('scroll', function() {
         nav.style.background = 'rgba(255, 255, 255, 0.95)';
         nav.style.backdropFilter = 'blur(10px)';
     } else {
-        nav.style.background = 'var(--background)';
+        nav.style.background = 'var(--white)';
         nav.style.backdropFilter = 'none';
     }
 });
@@ -41,12 +41,44 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', function() {
-    const animateElements = document.querySelectorAll('.project-card, .skill-category, .about-content, .contact-content');
+    const animateElements = document.querySelectorAll('.project-card, .skill-category, .about-content, .contact-content, .book-card');
     
     animateElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
+    });
+
+    // Add click handlers for book images
+    document.querySelectorAll('.book-image').forEach(img => {
+        img.addEventListener('click', function() {
+            const link = this.closest('.book-cover').querySelector('a');
+            if (link) {
+                window.open(link.href, '_blank');
+            }
+        });
+    });
+});
+
+// Add active state to navigation links
+window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
     });
 });
