@@ -47,6 +47,129 @@
       color: #1e40af;
       text-decoration: underline;
     }
+
+    /* Books Section Styles */
+    .books-section {
+      padding: 4rem 0;
+      background-color: #f9fafb;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 1.5rem;
+    }
+
+    .book-card {
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .book-cover {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .book-image {
+      width: 140px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .book-card:hover .book-image {
+      transform: scale(1.05);
+    }
+
+    .book-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .book-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .book-author {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .book-description {
+      font-size: 0.875rem;
+      color: #4b5563;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .book-link {
+      display: inline-block;
+      background-color: #2563eb;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease;
+      font-size: 0.875rem;
+    }
+
+    .book-link:hover {
+      background-color: #1d4ed8;
+      color: white;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .books-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+      }
+      
+      .book-card {
+        padding: 1.25rem;
+      }
+      
+      .book-image {
+        width: 120px;
+        height: 170px;
+      }
+    }
   </style>
 </head>
 <body class="antialiased">
@@ -59,7 +182,7 @@
       <li><a href="#home" class="hover:text-gray-900">Home</a></li>
       <li><a href="#about" class="hover:text-gray-900">About</a></li>
       <li><a href="#projects" class="hover:text-gray-900">Projects</a></li>
-      <li class="nav-item"><a href="#books" class="nav-link">Books</a></li>
+      <li><a href="#books" class="hover:text-gray-900">Books</a></li>
       <li><a href="#skills" class="hover:text-gray-900">Skills</a></li>
       <li><a href="#contact" class="hover:text-gray-900">Contact</a></li>
     </ul>
@@ -84,7 +207,7 @@
   <div class="max-w-5xl mx-auto px-6 text-center">
     <h2 class="section-title">About Me</h2>
     <p class="text-gray-600 leading-relaxed">
-      I’m a data-driven professional with over 8 years of experience in AI model development, machine learning, and environmental analytics.
+      I'm a data-driven professional with over 8 years of experience in AI model development, machine learning, and environmental analytics.
       My work focuses on building interpretable, scalable, and sustainable AI systems that bridge technology and environmental responsibility.
     </p>
   </div>
@@ -114,7 +237,7 @@
       <div class="project-card">
         <h4 class="font-semibold text-lg mb-1">Transformer Attention Explainer</h4>
         <span class="badge">Deep Learning</span>
-        <p class="text-gray-600 my-2">An interactive implementation of “Attention Is All You Need,” showcasing code-level explanations and mathematical expressions of the Transformer model.</p>
+        <p class="text-gray-600 my-2">An interactive implementation of "Attention Is All You Need," showcasing code-level explanations and mathematical expressions of the Transformer model.</p>
         <div class="project-links">
           <a href="https://arvind-55555.github.io/Transformer_Attention/" class="project-link"><i class="fab fa-github"></i> Code</a> |
           <a href="https://arvind-55555.github.io/arvind.github.io/transformer-attention/" class="project-link"><i class="fas fa-rocket"></i> Demo</a>
@@ -186,80 +309,88 @@
 
 <!-- Books Section -->
 <section id="books" class="books-section">
-    <div class="container">
-        <h2 class="section-title">My Published Books</h2>
-        <p class="section-subtitle">Check out my books available on Amazon</p>
-        
-        <div class="books-grid">
-            <!-- Book 1 -->
-            <div class="book-item">
-                <div class="book-cover">
-                    <img src="assets/images/Book1.jpg" alt="Biodiversity, Ecology, Habitat, and Climate Change - Interconnections and Impacts" class="book-image">
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">Biodiversity, Ecology, Habitat, and Climate Change - Interconnections and Impacts</h3>
-                    <p class="book-author">Arvind Saane</p>
-                    <p class="book-description">The book is a comprehensive exploration of the urgent issues of biodiversity loss and climate change. It emphasizes the interconnectedness of all life and the critical need for a unified global response.</p>
-                    <a href="https://www.amazon.com/Biodiversity-Ecology-Habitat-Climate-Change-ebook/dp/B0CZ26ZJ5L/ref=sr_1_2?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-2" target="_blank" class="book-link">View on Amazon</a>
-                </div>
-            </div>
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="section-title">Published Books</h2>
+    <p class="section-subtitle">Check out my technical books available on Amazon</p>
+    
+    <div class="books-grid">
+      <!-- Book 1 -->
+      <div class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/Biodiversity-Ecology-Habitat-Climate-Change-ebook/dp/B0CZ26ZJ5L/ref=sr_1_2?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-2" target="_blank">
+            <img src="assets/images/Book1.jpg" alt="Biodiversity, Ecology, Habitat, and Climate Change - Interconnections and Impacts" class="book-image">
+          </a>
+        </div>
+        <div class="book-info">
+          <h3 class="book-title">Biodiversity, Ecology, Habitat, and Climate Change - Interconnections and Impacts</h3>
+          <p class="book-author">Arvind Saane</p>
+          <p class="book-description">The book is a comprehensive exploration of the urgent issues of biodiversity loss and climate change. It emphasizes the interconnectedness of all life and the critical need for a unified global response.</p>
+          <a href="https://www.amazon.com/Biodiversity-Ecology-Habitat-Climate-Change-ebook/dp/B0CZ26ZJ5L/ref=sr_1_2?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-2" target="_blank" class="book-link">View on Amazon</a>
+        </div>
+      </div>
 
-            <!-- Book 2 -->
-            <div class="book-item">
-                <div class="book-cover">
-                    <img src="assets/images/Book2.jpg" alt="Mathematical Foundations for Data Science" class="book-image">
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">Mathematical Foundations for Data Science</h3>
-                    <p class="book-author">Arvind Saane</p>
-                    <p class="book-description">Mathematics for Data Science offers a detailed, accessible, and practical guide to the essential mathematics that underpins modern data science practices.</p>
-                    <a href="https://www.amazon.com/Mathematical-Foundations-Science-Arvind-Saane-ebook/dp/B0DG52ZC3D/ref=sr_1_3?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-3" target="_blank" class="book-link">View on Amazon</a>
-                </div>
-            </div>
+      <!-- Book 2 -->
+      <div class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/Mathematical-Foundations-Science-Arvind-Saane-ebook/dp/B0DG52ZC3D/ref=sr_1_3?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-3" target="_blank">
+            <img src="assets/images/Book2.jpg" alt="Mathematical Foundations for Data Science" class="book-image">
+          </a>
+        </div>
+        <div class="book-info">
+          <h3 class="book-title">Mathematical Foundations for Data Science</h3>
+          <p class="book-author">Arvind Saane</p>
+          <p class="book-description">Mathematics for Data Science offers a detailed, accessible, and practical guide to the essential mathematics that underpins modern data science practices.</p>
+          <a href="https://www.amazon.com/Mathematical-Foundations-Science-Arvind-Saane-ebook/dp/B0DG52ZC3D/ref=sr_1_3?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-3" target="_blank" class="book-link">View on Amazon</a>
+        </div>
+      </div>
 
-            <!-- Book 3 -->
-            <div class="book-item">
-                <div class="book-cover">
-                    <img src="assets/images/Book3.jpg" alt="Global Waste Management Practices - Practical Solutions, Processes, and Challenges" class="book-image">
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">Global Waste Management Practices - Practical Solutions, Processes, and Challenges</h3>
-                    <p class="book-author">Arvind Saane</p>
-                    <p class="book-description"> The book examines the processes, challenges, and innovative solutions associated with managing waste, offering practical insights for professionals, policymakers, and students interested in environmental sustainability.</p>
-                    <a href="https://www.amazon.com/Global-Waste-Management-Practices-Challenges-ebook/dp/B0DF59VYMS/ref=sr_1_4?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-4" target="_blank" class="book-link">View on Amazon</a>
-                </div>
-            </div>
+      <!-- Book 3 -->
+      <div class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/Global-Waste-Management-Practices-Challenges-ebook/dp/B0DF59VYMS/ref=sr_1_4?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-4" target="_blank">
+            <img src="assets/images/Book3.jpg" alt="Global Waste Management Practices - Practical Solutions, Processes, and Challenges" class="book-image">
+          </a>
+        </div>
+        <div class="book-info">
+          <h3 class="book-title">Global Waste Management Practices - Practical Solutions, Processes, and Challenges</h3>
+          <p class="book-author">Arvind Saane</p>
+          <p class="book-description"> The book examines the processes, challenges, and innovative solutions associated with managing waste, offering practical insights for professionals, policymakers, and students interested in environmental sustainability.</p>
+          <a href="https://www.amazon.com/Global-Waste-Management-Practices-Challenges-ebook/dp/B0DF59VYMS/ref=sr_1_4?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-4" target="_blank" class="book-link">View on Amazon</a>
+        </div>
+      </div>
 
-            <!-- Book 4 -->
-            <div class="book-item">
-                <div class="book-cover">
-                    <img src="assets/images/Book4.jpg" alt="Re-Designing Cities with Nature-Based Solutions" class="book-image">
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">Re-Designing Cities with Nature-Based Solutions</h3>
-                    <p class="book-author">Arvind Saane</p>
-                    <p class="book-description">This book delves into the concept of nature-based solutions (NBS), which leverage natural processes and ecosystems to address urban challenges such as climate change, water management, and biodiversity loss. </p>
-                    <a href="https://www.amazon.com/Re-Designing-Cities-Nature-Based-Solutions-Arvind/dp/B0DFXWS95P/ref=sr_1_5?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-5" target="_blank" class="book-link">View on Amazon</a>
-                </div>
-            </div>
+      <!-- Book 4 -->
+      <div class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/Re-Designing-Cities-Nature-Based-Solutions-Arvind/dp/B0DFXWS95P/ref=sr_1_5?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-5" target="_blank">
+            <img src="assets/images/Book4.jpg" alt="Re-Designing Cities with Nature-Based Solutions" class="book-image">
+          </a>
+        </div>
+        <div class="book-info">
+          <h3 class="book-title">Re-Designing Cities with Nature-Based Solutions</h3>
+          <p class="book-author">Arvind Saane</p>
+          <p class="book-description">This book delves into the concept of nature-based solutions (NBS), which leverage natural processes and ecosystems to address urban challenges such as climate change, water management, and biodiversity loss. </p>
+          <a href="https://www.amazon.com/Re-Designing-Cities-Nature-Based-Solutions-Arvind/dp/B0DFXWS95P/ref=sr_1_5?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-5" target="_blank" class="book-link">View on Amazon</a>
+        </div>
+      </div>
 
-            <!-- Book 5 -->
-            <div class="book-item">
-                <div class="book-cover">
-                    <img src="assets/images/Book5.jpg" alt="Roadmap to Urban-Forestry, Agro-Forestry, and Permaculture" class="book-image">
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">Roadmap to Urban-Forestry, Agro-Forestry, and Permaculture</h3>
-                    <p class="book-author">Arvind Saane</p>
-                    <p class="book-description"> This comprehensive book explores three critical fields—urban forestry, agro-forestry, and permaculture—and demonstrates how their integration can address pressing global challenges such as climate change, urban heat islands, and biodiversity loss.</p>
-                    <a href="https://www.amazon.com/Roadmap-Urban-Forestry-Agro-Forestry-Permaculture-Arvind-ebook/dp/B0DF78Z93X/ref=sr_1_1?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-1" target="_blank" class="book-link">View on Amazon</a>
-                </div>
-            </div>
-          </div>
+      <!-- Book 5 -->
+      <div class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/Roadmap-Urban-Forestry-Agro-Forestry-Permaculture-Arvind-ebook/dp/B0DF78Z93X/ref=sr_1_1?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-1" target="_blank">
+            <img src="assets/images/Book5.jpg" alt="Roadmap to Urban-Forestry, Agro-Forestry, and Permaculture" class="book-image">
+          </a>
+        </div>
+        <div class="book-info">
+          <h3 class="book-title">Roadmap to Urban-Forestry, Agro-Forestry, and Permaculture</h3>
+          <p class="book-author">Arvind Saane</p>
+          <p class="book-description"> This comprehensive book explores three critical fields—urban forestry, agro-forestry, and permaculture—and demonstrates how their integration can address pressing global challenges such as climate change, urban heat islands, and biodiversity loss.</p>
+          <a href="https://www.amazon.com/Roadmap-Urban-Forestry-Agro-Forestry-Permaculture-Arvind-ebook/dp/B0DF78Z93X/ref=sr_1_1?crid=2RO4S5AU447A4&dib=eyJ2IjoiMSJ9.Y2sYtYUmGh3T6CAX8hXSG34W_x8_SbrE1Wp23V54-oOeqP1ua9jJi-1XpFqfeXnD5sB-dyKFTTJsqHPDOxqxQZYA69UWrBIMX9N9TEpESIk.2N4rgAvjjVYWdiFV7XJkNs1lOjCdL-AnCOK0N40OK4I&dib_tag=se&keywords=arvind+saane&qid=1762784960&sprefix=arvind+saane%2Caps%2C359&sr=8-1" target="_blank" class="book-link">View on Amazon</a>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
-
-            
 
 <!-- Skills -->
 <section id="skills" class="py-16 bg-white">
@@ -303,7 +434,3 @@
 
 </body>
 </html>
-
-
-
-
