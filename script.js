@@ -50,6 +50,28 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
+// Update the animateElements selector to include environmental services
+document.addEventListener('DOMContentLoaded', function() {
+    const animateElements = document.querySelectorAll('.project-card, .skill-category, .about-content, .contact-content, .book-card, .service-card');
+    
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+
+    // Add click handlers for book images (existing code)
+    document.querySelectorAll('.book-image').forEach(img => {
+        img.addEventListener('click', function() {
+            const link = this.closest('.book-cover').querySelector('a');
+            if (link) {
+                window.open(link.href, '_blank');
+            }
+        });
+    });
+});
+    
     // Add click handlers for book images
     document.querySelectorAll('.book-image').forEach(img => {
         img.addEventListener('click', function() {
