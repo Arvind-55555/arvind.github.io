@@ -3,259 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Blog - Arvind</title>
+    <title>Math Blog - Arvind Saane</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
     <style>
-    :root {
-        --bg-black-100: #fdf9ff;
-        --bg-black-50: #f8f8f8;
-        --bg-black-900: #151515;
-        --text-black-900: #302e4d;
-        --text-black-700: #504e70;
-        --skin-color: #ec1839;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        outline: none;
-        text-decoration: none;
-    }
-
-    body {
-        font-family: 'Poppins', sans-serif;
-        line-height: 1.5;
-        font-size: 16px;
-        background: var(--bg-black-100);
-        color: var(--text-black-700);
-    }
-
-    .container {
-        max-width: 1100px;
-        width: 100%;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    /* Header Styles */
-    header {
-        background: var(--bg-black-50);
-        padding: 12px 0;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        border-bottom: 1px solid var(--bg-black-100);
-    }
-
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo {
-        font-size: 28px;
-        font-weight: 700;
-        color: var(--skin-color);
-    }
-
-    .nav-links {
-        display: flex;
-        list-style: none;
-        gap: 30px;
-    }
-
-    .nav-links a {
-        color: var(--text-black-900);
-        font-weight: 500;
-        font-size: 16px;
-        transition: all 0.3s ease;
-    }
-
-    .nav-links a:hover {
-        color: var(--skin-color);
-    }
-
-    /* Blog Hero */
-    .blog-hero {
-        background: linear-gradient(135deg, var(--skin-color) 0%, #ff6b6b 100%);
-        color: white;
-        text-align: center;
-        padding: 150px 0 80px;
-        margin-top: 60px;
-    }
-
-    .blog-hero h1 {
-        font-size: 48px;
-        font-weight: 700;
-        margin-bottom: 20px;
-    }
-
-    .blog-hero p {
-        font-size: 18px;
-        opacity: 0.9;
-    }
-
-    /* Blog Content */
-    .blog-content {
-        padding: 80px 0;
-    }
-
-    .blog-content h2 {
-        font-size: 32px;
-        font-weight: 600;
-        color: var(--text-black-900);
-        text-align: center;
-        margin-bottom: 40px;
-        position: relative;
-    }
-
-    .blog-content h2:before {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 50px;
-        height: 3px;
-        background: var(--skin-color);
-    }
-
-    .blog-posts {
-        display: grid;
-        gap: 30px;
-        margin-top: 40px;
-    }
-
-    .blog-post {
-        background: var(--bg-black-50);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-        border: 1px solid var(--bg-black-100);
-    }
-
-    .blog-post:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-    }
-
-    .blog-post h3 {
-        color: var(--text-black-900);
-        font-size: 22px;
-        font-weight: 600;
-        margin-bottom: 15px;
-    }
-
-    .post-meta {
-        color: var(--text-black-700);
-        font-size: 14px;
-        margin-bottom: 15px;
-        opacity: 0.8;
-    }
-
-    .blog-post p {
-        color: var(--text-black-700);
-        margin-bottom: 20px;
-        line-height: 1.6;
-    }
-
-    .read-more {
-        display: inline-block;
-        background: var(--skin-color);
-        color: white;
-        padding: 10px 25px;
-        border-radius: 5px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-
-    .read-more:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(236, 24, 57, 0.3);
-    }
-
-    /* Footer */
-    footer {
-        background: var(--bg-black-900);
-        color: white;
-        text-align: center;
-        padding: 30px 0;
-        margin-top: 60px;
-    }
-
-    @media (max-width: 767px) {
-        .blog-hero h1 {
-            font-size: 36px;
+        /* Additional styles for math blog page */
+        .blog-page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
         }
-        
-        .blog-hero {
-            padding: 120px 0 60px;
+
+        .blog-page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.05"><polygon points="1000,100 1000,0 0,100"/></svg>');
+            background-size: cover;
         }
-        
-        .nav-links {
-            gap: 15px;
+
+        .blog-page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
-        
-        .blog-post {
-            padding: 20px;
+
+        .blog-page-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
         }
-    }
-</style>
+
+        .blog-posts-container {
+            padding: 80px 0;
+            background: var(--background);
+        }
+
+        .blog-posts-grid {
+            display: grid;
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .blog-post-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(44, 62, 80, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .blog-post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(44, 62, 80, 0.15);
+        }
+
+        .blog-post-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .post-meta {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-post-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-color);
+        }
+
+        .read-more-btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.2);
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: color 0.3s;
+        }
+
+        .back-to-home:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .blog-page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .blog-page-header p {
+                font-size: 1.1rem;
+            }
+            
+            .blog-post-card {
+                padding: 2rem;
+            }
+            
+            .blog-posts-grid {
+                gap: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">Arvind's Math Blog</div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <h2><a href="index.html" style="color: var(--primary-color); text-decoration: none;">Arvind Saane</a></h2>
+            </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#recent">Recent Posts</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <section class="blog-hero">
+    <!-- Blog Header -->
+    <section class="blog-page-header">
         <div class="container">
             <h1>Mathematics Blog</h1>
-            <p>Exploring the beauty and logic of mathematics</p>
+            <p>Exploring the beauty and logic of mathematics through data science and AI</p>
         </div>
     </section>
 
-    <section class="blog-content">
+    <!-- Blog Posts -->
+    <section class="blog-posts-container">
         <div class="container">
-            <h2>Recent Articles</h2>
-            <div class="blog-posts">
-                <article class="blog-post">
-                    <h3>The Beauty of Prime Numbers</h3>
-                    <div class="post-meta">Published on December 1, 2024 | 5 min read</div>
-                    <p>Exploring the fascinating world of prime numbers and their applications in modern cryptography and number theory.</p>
-                    <a href="#" class="read-more">Read More</a>
+            <a href="index.html" class="back-to-home">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            
+            <div class="section-title">
+                <h2>Recent Articles</h2>
+            </div>
+
+            <div class="blog-posts-grid">
+                <article class="blog-post-card">
+                    <h3>The Beauty of Prime Numbers in Cryptography</h3>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> December 1, 2024</span>
+                        <span><i class="far fa-clock"></i> 5 min read</span>
+                    </div>
+                    <p>Exploring the fascinating world of prime numbers and their critical applications in modern cryptography, cybersecurity, and number theory. Learn how these fundamental mathematical concepts protect our digital world.</p>
+                    <a href="#" class="read-more-btn">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
                 </article>
 
-                <article class="blog-post">
-                    <h3>Understanding Calculus Fundamentals</h3>
-                    <div class="post-meta">Published on November 25, 2024 | 7 min read</div>
-                    <p>A deep dive into the basic concepts of calculus and how they form the foundation for modern mathematics and physics.</p>
-                    <a href="#" class="read-more">Read More</a>
+                <article class="blog-post-card">
+                    <h3>Understanding Calculus Fundamentals for Machine Learning</h3>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> November 25, 2024</span>
+                        <span><i class="far fa-clock"></i> 7 min read</span>
+                    </div>
+                    <p>A deep dive into the basic concepts of calculus and how they form the mathematical foundation for modern machine learning algorithms, optimization techniques, and neural network training.</p>
+                    <a href="#" class="read-more-btn">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
                 </article>
 
-                <article class="blog-post">
-                    <h3>Linear Algebra in Machine Learning</h3>
-                    <div class="post-meta">Published on November 18, 2024 | 6 min read</div>
-                    <p>How linear algebra concepts power modern machine learning algorithms and data science applications.</p>
-                    <a href="#" class="read-more">Read More</a>
+                <article class="blog-post-card">
+                    <h3>Linear Algebra in Machine Learning Applications</h3>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> November 18, 2024</span>
+                        <span><i class="far fa-clock"></i> 6 min read</span>
+                    </div>
+                    <p>How linear algebra concepts power modern machine learning algorithms and data science applications. From matrix operations to eigenvectors, discover the mathematical backbone of AI systems.</p>
+                    <a href="#" class="read-more-btn">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="blog-post-card">
+                    <h3>Statistical Foundations for Data Science</h3>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> November 10, 2024</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <p>Essential statistical concepts every data scientist should master. Covering probability distributions, hypothesis testing, and statistical inference with practical examples from environmental data analysis.</p>
+                    <a href="#" class="read-more-btn">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="blog-post-card">
+                    <h3>Optimization Algorithms in AI Systems</h3>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> November 3, 2024</span>
+                        <span><i class="far fa-clock"></i> 6 min read</span>
+                    </div>
+                    <p>Exploring gradient descent, stochastic optimization, and other mathematical optimization techniques that drive the training of neural networks and machine learning models.</p>
+                    <a href="#" class="read-more-btn">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="blog-post-card">
+                    <h3>Mathematical Modeling for Environmental Sustainability</h3>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> October 27, 2024</span>
+                        <span><i class="far fa-clock"></i> 9 min read</span>
+                    </div>
+                    <p>How mathematical models help solve complex environmental challenges. From climate prediction to resource optimization, discover the equations shaping our sustainable future.</p>
+                    <a href="#" class="read-more-btn">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
                 </article>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Arvind's Math Blog. All rights reserved.</p>
+            <p>&copy; 2024 Arvind Saane. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
