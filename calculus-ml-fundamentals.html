@@ -103,6 +103,29 @@
             align-items: center;
             margin-bottom: 8px;
         }
+
+        .explanation-box {
+            background: linear-gradient(135deg, #f0f9ff, #fef7ff);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-converged { background: #dcfce7; color: #166534; }
+        .status-close { background: #fef9c3; color: #854d0e; }
+        .status-progressing { background: #dbeafe; color: #1e40af; }
+        .status-slow { background: #fee2e2; color: #991b1b; }
     </style>
 </head>
 <body>
@@ -158,6 +181,7 @@
                                 <span id="lrValue" class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">0.1</span>
                             </div>
                             <input type="range" id="learningRate" min="0.01" max="0.5" step="0.01" value="0.1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="text-xs text-gray-500 mt-1">Step size - bigger steps learn faster but might overshoot</div>
                         </div>
                         
                         <div class="slider-container">
@@ -166,6 +190,7 @@
                                 <span id="ipValue" class="text-sm font-mono bg-green-100 px-2 py-1 rounded">8.0</span>
                             </div>
                             <input type="range" id="initialPoint" min="-8" max="8" step="0.5" value="8" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="text-xs text-gray-500 mt-1">Starting position - where the algorithm begins</div>
                         </div>
                         
                         <div class="slider-container">
@@ -174,6 +199,7 @@
                                 <span id="iterValue" class="text-sm font-mono bg-purple-100 px-2 py-1 rounded">15</span>
                             </div>
                             <input type="range" id="iterations" min="5" max="30" step="1" value="15" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="text-xs text-gray-500 mt-1">Number of steps - more steps = more precise but slower</div>
                         </div>
                         
                         <div class="flex gap-2 mt-6">
@@ -200,9 +226,46 @@
                                     <span>Iterations:</span>
                                     <span id="infoIterations" class="font-mono">15</span>
                                 </div>
-                                <div class="flex justify-between">
+                                <div class="flex justify-between items-center">
                                     <span>Status:</span>
-                                    <span id="infoStatus" class="font-mono text-blue-600">Ready</span>
+                                    <span id="infoStatus" class="status-indicator status-progressing">Ready</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Explanation Box -->
+                        <div class="explanation-box mt-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">🎯 What You're Seeing</h4>
+                            <p class="text-sm text-gray-700 mb-3">
+                                This is <strong>gradient descent</strong> - the same math that helps AI learn! Imagine a hiker finding the bottom of a valley:
+                            </p>
+                            
+                            <div class="grid grid-cols-2 gap-4 text-xs mb-3">
+                                <div>
+                                    <div class="font-semibold">🏔️ The Valley</div>
+                                    <ul class="list-disc list-inside mt-1">
+                                        <li>Curve = Valley</li>
+                                        <li>Bottom = Perfect solution</li>
+                                        <li>Red dots = Hiker's path</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">🚶 The Hiker</div>
+                                    <ul class="list-disc list-inside mt-1">
+                                        <li>Learning rate = Step size</li>
+                                        <li>Iterations = Steps taken</li>
+                                        <li>Initial point = Start position</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="text-xs">
+                                <div class="font-semibold mb-1">📊 Status Meanings:</div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="status-indicator status-converged">Converged!</span>
+                                    <span class="status-indicator status-close">Close</span>
+                                    <span class="status-indicator status-progressing">Progressing</span>
+                                    <span class="status-indicator status-slow">Slow</span>
                                 </div>
                             </div>
                         </div>
@@ -211,6 +274,33 @@
                     <div class="visualization-container">
                         <canvas id="interactiveChart"></canvas>
                     </div>
+                </div>
+
+                <!-- Detailed Explanation -->
+                <div class="key-concept mt-8">
+                    <h3 class="text-xl font-semibold mb-3">💡 Real-World AI Connection</h3>
+                    <p class="text-gray-700 mb-3">
+                        This exact same math trains:
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>ChatGPT</strong> - to have conversations</li>
+                                <li><strong>Self-driving cars</strong> - to recognize objects</li>
+                                <li><strong>Netflix</strong> - to recommend movies</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>Email filters</strong> - to detect spam</li>
+                                <li><strong>Face recognition</strong> - to identify people</li>
+                                <li><strong>Stock prediction</strong> - to forecast prices</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mt-3 text-sm">
+                        <strong>Your visualization shows the core math that powers all modern AI!</strong> The algorithm "learns" by taking steps toward the best solution, just like AI learns from data.
+                    </p>
                 </div>
             </section>
 
@@ -492,16 +582,16 @@
             
             if (finalError < 0.001) {
                 statusElement.textContent = 'Converged!';
-                statusElement.className = 'font-mono text-green-600';
+                statusElement.className = 'status-indicator status-converged';
             } else if (finalError < 0.1) {
                 statusElement.textContent = 'Close';
-                statusElement.className = 'font-mono text-yellow-600';
+                statusElement.className = 'status-indicator status-close';
             } else if (finalError < 1) {
                 statusElement.textContent = 'Progressing';
-                statusElement.className = 'font-mono text-blue-600';
+                statusElement.className = 'status-indicator status-progressing';
             } else {
                 statusElement.textContent = 'Slow';
-                statusElement.className = 'font-mono text-red-600';
+                statusElement.className = 'status-indicator status-slow';
             }
         }
 
