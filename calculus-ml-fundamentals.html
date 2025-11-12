@@ -7,7 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             background-color: #f8fafc;
@@ -152,6 +151,46 @@
                 </div>
             </section>
 
+            <!-- Interactive Demo -->
+            <section class="interactive-demo">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Interactive Gradient Descent Visualization</h2>
+                <p class="text-gray-700 mb-6">Adjust the parameters to see how gradient descent finds the minimum of the function f(x) = x²:</p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Learning Rate (η):</label>
+                            <input type="range" id="learningRate" min="0.01" max="0.5" step="0.01" value="0.1" class="w-full">
+                            <span id="lrValue" class="text-sm text-gray-600">0.1</span>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Initial Point:</label>
+                            <input type="range" id="initialPoint" min="-8" max="8" step="0.5" value="8" class="w-full">
+                            <span id="ipValue" class="text-sm text-gray-600">8.0</span>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Iterations:</label>
+                            <input type="range" id="iterations" min="5" max="30" step="1" value="15" class="w-full">
+                            <span id="iterValue" class="text-sm text-gray-600">15</span>
+                        </div>
+                        
+                        <button onclick="updateVisualization()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2">
+                            Update Visualization
+                        </button>
+                        <button onclick="resetVisualization()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                            Reset
+                        </button>
+                    </div>
+                    
+                    <div class="visualization-container">
+                        <canvas id="interactiveChart" width="400" height="300"></canvas>
+                        <div id="convergenceInfo" class="mt-4 text-sm text-gray-600"></div>
+                    </div>
+                </div>
+            </section>
+
             <!-- The Two Pillars of Calculus -->
             <section>
                 <h2 class="section-title text-3xl font-bold">The Two Pillars of Calculus</h2>
@@ -214,18 +253,13 @@
                     <div class="math-equation text-center bg-green-100">
                         θ_new = θ_old - η * ∇L(θ_old)
                     </div>
-                    <div class="mt-4 grid md:grid-cols-2 gap-4">
-                        <div>
-                            <strong>Where:</strong>
-                            <ul class="list-disc list-inside mt-2">
-                                <li>θ represents model parameters</li>
-                                <li>η is the learning rate</li>
-                                <li>∇L(θ) is the gradient of the loss function</li>
-                            </ul>
-                        </div>
-                        <div class="visualization-container">
-                            <canvas id="gradientDescentChart" width="400" height="200"></canvas>
-                        </div>
+                    <div class="mt-4">
+                        <strong>Where:</strong>
+                        <ul class="list-disc list-inside mt-2">
+                            <li>θ represents model parameters</li>
+                            <li>η is the learning rate</li>
+                            <li>∇L(θ) is the gradient of the loss function</li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -298,36 +332,6 @@
                             <div class="text-yellow-500">↓</div>
                             <div class="inline-block bg-red-100 px-3 py-1 rounded">Input Layer</div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Interactive Demo -->
-            <section class="interactive-demo">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Interactive Gradient Descent Visualization</h2>
-                <p class="text-gray-700 mb-6">Adjust the learning rate to see how it affects convergence:</p>
-                
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Learning Rate (η):</label>
-                            <input type="range" id="learningRate" min="0.01" max="0.5" step="0.01" value="0.1" class="w-full">
-                            <span id="lrValue" class="text-sm text-gray-600">0.1</span>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Initial Point:</label>
-                            <input type="range" id="initialPoint" min="-8" max="8" step="0.5" value="8" class="w-full">
-                            <span id="ipValue" class="text-sm text-gray-600">8.0</span>
-                        </div>
-                        
-                        <button onclick="updateVisualization()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                            Update Visualization
-                        </button>
-                    </div>
-                    
-                    <div class="visualization-container">
-                        <canvas id="interactiveChart" width="400" height="300"></canvas>
                     </div>
                 </div>
             </section>
@@ -405,82 +409,74 @@
     </footer>
 
     <script>
-        // Initialize MathJax
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
-        };
+        // Global variable to store the chart instance
+        let interactiveChart = null;
 
-        // Gradient Descent Visualization
-        function initializeCharts() {
-            const gradientCtx = document.getElementById('gradientDescentChart').getContext('2d');
-            const interactiveCtx = document.getElementById('interactiveChart').getContext('2d');
-            
-            // Static gradient descent chart
-            new Chart(gradientCtx, {
-                type: 'line',
-                data: {
-                    labels: Array.from({length: 20}, (_, i) => i),
-                    datasets: [{
-                        label: 'Loss Convergence',
-                        data: [64, 40.96, 26.21, 16.78, 10.74, 6.87, 4.40, 2.81, 1.80, 1.15, 0.74, 0.47, 0.30, 0.19, 0.12, 0.08, 0.05, 0.03, 0.02, 0.01],
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Gradient Descent Convergence'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Loss'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Iteration'
-                            }
-                        }
-                    }
-                }
+        // Initialize the visualization when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeVisualization();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Update slider values in real-time
+            document.getElementById('learningRate').addEventListener('input', function() {
+                document.getElementById('lrValue').textContent = this.value;
             });
 
-            updateInteractiveChart();
+            document.getElementById('initialPoint').addEventListener('input', function() {
+                document.getElementById('ipValue').textContent = this.value;
+            });
+
+            document.getElementById('iterations').addEventListener('input', function() {
+                document.getElementById('iterValue').textContent = this.value;
+            });
+
+            // Auto-update visualization when sliders change
+            document.getElementById('learningRate').addEventListener('change', updateVisualization);
+            document.getElementById('initialPoint').addEventListener('change', updateVisualization);
+            document.getElementById('iterations').addEventListener('change', updateVisualization);
         }
 
-        function updateInteractiveChart() {
+        function initializeVisualization() {
+            updateVisualization();
+        }
+
+        function updateVisualization() {
             const lr = parseFloat(document.getElementById('learningRate').value);
             const initialPoint = parseFloat(document.getElementById('initialPoint').value);
+            const iterations = parseInt(document.getElementById('iterations').value);
             
             const ctx = document.getElementById('interactiveChart').getContext('2d');
             
+            // Destroy existing chart if it exists
+            if (interactiveChart) {
+                interactiveChart.destroy();
+            }
+            
             // Generate data for the function f(x) = x²
-            const xValues = Array.from({length: 100}, (_, i) => -10 + i * 0.2);
-            const yValues = xValues.map(x => x * x);
+            const xValues = [];
+            const yValues = [];
+            for (let x = -10; x <= 10; x += 0.2) {
+                xValues.push(x);
+                yValues.push(x * x);
+            }
             
             // Simulate gradient descent
             let xCurrent = initialPoint;
             const path = [{x: xCurrent, y: xCurrent * xCurrent}];
+            const convergenceData = [];
             
-            for (let i = 0; i < 15; i++) {
-                const gradient = 2 * xCurrent;
+            for (let i = 0; i < iterations; i++) {
+                const gradient = 2 * xCurrent; // f'(x) = 2x for f(x) = x²
                 xCurrent = xCurrent - lr * gradient;
-                path.push({x: xCurrent, y: xCurrent * xCurrent});
+                const currentY = xCurrent * xCurrent;
+                path.push({x: xCurrent, y: currentY});
+                convergenceData.push({iteration: i + 1, x: xCurrent, y: currentY});
             }
             
-            new Chart(ctx, {
+            // Create new chart
+            interactiveChart = new Chart(ctx, {
                 type: 'scatter',
                 data: {
                     datasets: [
@@ -492,7 +488,7 @@
                             pointRadius: 0,
                             borderWidth: 2,
                             showLine: true,
-                            fill: true
+                            fill: false
                         },
                         {
                             label: 'Gradient Descent Path',
@@ -501,23 +497,34 @@
                             backgroundColor: '#ef4444',
                             pointRadius: 4,
                             showLine: true,
-                            borderWidth: 1
+                            borderWidth: 2,
+                            pointBackgroundColor: '#ef4444',
+                            pointBorderColor: '#b91c1c'
                         }
                     ]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Interactive Gradient Descent'
+                            text: 'Gradient Descent: Finding Minimum of f(x) = x²',
+                            font: {
+                                size: 16
+                            }
                         },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return `x: ${context.parsed.x.toFixed(2)}, f(x): ${context.parsed.y.toFixed(2)}`;
+                                    const point = context.raw;
+                                    return `x: ${point.x.toFixed(2)}, f(x): ${point.y.toFixed(2)}`;
                                 }
                             }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
                         }
                     },
                     scales: {
@@ -526,37 +533,81 @@
                             position: 'bottom',
                             title: {
                                 display: true,
-                                text: 'x'
+                                text: 'x',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         },
                         y: {
                             title: {
                                 display: true,
-                                text: 'f(x)'
+                                text: 'f(x) = x²',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeOutQuart'
                     }
                 }
             });
+            
+            // Update convergence information
+            updateConvergenceInfo(convergenceData, lr, initialPoint);
         }
 
-        function updateVisualization() {
-            updateInteractiveChart();
+        function updateConvergenceInfo(convergenceData, lr, initialPoint) {
+            const infoDiv = document.getElementById('convergenceInfo');
+            const finalPoint = convergenceData[convergenceData.length - 1];
+            
+            let infoHTML = `
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <strong>Initial Point:</strong> ${initialPoint.toFixed(2)}<br>
+                        <strong>Learning Rate:</strong> ${lr.toFixed(2)}<br>
+                        <strong>Iterations:</strong> ${convergenceData.length}
+                    </div>
+                    <div>
+                        <strong>Final Point:</strong> ${finalPoint.x.toFixed(4)}<br>
+                        <strong>Final Value:</strong> ${finalPoint.y.toFixed(4)}<br>
+                        <strong>Error:</strong> ${Math.abs(finalPoint.y).toFixed(4)}
+                    </div>
+                </div>
+            `;
+            
+            // Add convergence analysis
+            if (finalPoint.y < 0.01) {
+                infoHTML += `<p class="mt-2 text-green-600"><i class="fas fa-check-circle"></i> Successfully converged to minimum!</p>`;
+            } else if (finalPoint.y > 1) {
+                infoHTML += `<p class="mt-2 text-yellow-600"><i class="fas fa-exclamation-triangle"></i> Slow convergence - try increasing learning rate</p>`;
+            } else {
+                infoHTML += `<p class="mt-2 text-blue-600"><i class="fas fa-info-circle"></i> Making progress toward minimum</p>`;
+            }
+            
+            infoDiv.innerHTML = infoHTML;
         }
 
-        // Update slider values
-        document.getElementById('learningRate').addEventListener('input', function() {
-            document.getElementById('lrValue').textContent = this.value;
-        });
-
-        document.getElementById('initialPoint').addEventListener('input', function() {
-            document.getElementById('ipValue').textContent = this.value;
-        });
-
-        // Initialize charts when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeCharts();
-        });
+        function resetVisualization() {
+            document.getElementById('learningRate').value = 0.1;
+            document.getElementById('initialPoint').value = 8;
+            document.getElementById('iterations').value = 15;
+            
+            document.getElementById('lrValue').textContent = '0.1';
+            document.getElementById('ipValue').textContent = '8.0';
+            document.getElementById('iterValue').textContent = '15';
+            
+            updateVisualization();
+        }
     </script>
 </body>
 </html>
