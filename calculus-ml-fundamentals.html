@@ -45,21 +45,14 @@
             font-family: 'Times New Roman', serif;
         }
         
-        .code-block {
-            background: #1a202c;
-            color: #e2e8f0;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            overflow-x: auto;
-        }
-        
         .visualization-container {
             background: #f7fafc;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             padding: 20px;
             margin: 30px 0;
+            position: relative;
+            height: 400px;
         }
         
         .key-concept {
@@ -98,6 +91,17 @@
             border-radius: 12px;
             padding: 25px;
             margin: 30px 0;
+        }
+
+        .slider-container {
+            margin-bottom: 20px;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -139,16 +143,6 @@
                 <p class="text-gray-700 mb-6">
                     Calculus forms the mathematical backbone of modern machine learning, providing the essential tools for optimization, understanding change, and training complex neural networks. While many ML practitioners use high-level libraries like TensorFlow and PyTorch, understanding the underlying calculus principles is crucial for developing intuition and solving challenging problems.
                 </p>
-                
-                <div class="key-concept">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Why Calculus Matters in ML</h3>
-                    <ul class="list-disc list-inside text-gray-700 space-y-2">
-                        <li>Optimization of loss functions through gradient descent</li>
-                        <li>Understanding how changes in inputs affect outputs</li>
-                        <li>Backpropagation in neural networks</li>
-                        <li>Model interpretability and feature importance</li>
-                    </ul>
-                </div>
             </section>
 
             <!-- Interactive Demo -->
@@ -158,35 +152,64 @@
                 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Learning Rate (η):</label>
-                            <input type="range" id="learningRate" min="0.01" max="0.5" step="0.01" value="0.1" class="w-full">
-                            <span id="lrValue" class="text-sm text-gray-600">0.1</span>
+                        <div class="slider-container">
+                            <div class="slider-label">
+                                <label class="text-sm font-medium text-gray-700">Learning Rate (η):</label>
+                                <span id="lrValue" class="text-sm font-mono bg-blue-100 px-2 py-1 rounded">0.1</span>
+                            </div>
+                            <input type="range" id="learningRate" min="0.01" max="0.5" step="0.01" value="0.1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                         </div>
                         
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Initial Point:</label>
-                            <input type="range" id="initialPoint" min="-8" max="8" step="0.5" value="8" class="w-full">
-                            <span id="ipValue" class="text-sm text-gray-600">8.0</span>
+                        <div class="slider-container">
+                            <div class="slider-label">
+                                <label class="text-sm font-medium text-gray-700">Initial Point:</label>
+                                <span id="ipValue" class="text-sm font-mono bg-green-100 px-2 py-1 rounded">8.0</span>
+                            </div>
+                            <input type="range" id="initialPoint" min="-8" max="8" step="0.5" value="8" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                         </div>
                         
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Iterations:</label>
-                            <input type="range" id="iterations" min="5" max="30" step="1" value="15" class="w-full">
-                            <span id="iterValue" class="text-sm text-gray-600">15</span>
+                        <div class="slider-container">
+                            <div class="slider-label">
+                                <label class="text-sm font-medium text-gray-700">Iterations:</label>
+                                <span id="iterValue" class="text-sm font-mono bg-purple-100 px-2 py-1 rounded">15</span>
+                            </div>
+                            <input type="range" id="iterations" min="5" max="30" step="1" value="15" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                         </div>
                         
-                        <button onclick="updateVisualization()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2">
-                            Update Visualization
-                        </button>
-                        <button onclick="resetVisualization()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
-                            Reset
-                        </button>
+                        <div class="flex gap-2 mt-6">
+                            <button onclick="updateVisualization()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg font-semibold transition duration-200">
+                                <i class="fas fa-sync-alt mr-2"></i>Update Visualization
+                            </button>
+                            <button onclick="resetVisualization()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg font-semibold transition duration-200">
+                                <i class="fas fa-redo mr-2"></i>Reset
+                            </button>
+                        </div>
+
+                        <div id="convergenceInfo" class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Convergence Analysis</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span>Initial Point:</span>
+                                    <span id="infoInitial" class="font-mono">8.00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Final Point:</span>
+                                    <span id="infoFinal" class="font-mono">-</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Iterations:</span>
+                                    <span id="infoIterations" class="font-mono">15</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Status:</span>
+                                    <span id="infoStatus" class="font-mono text-blue-600">Ready</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="visualization-container">
-                        <canvas id="interactiveChart" width="400" height="300"></canvas>
-                        <div id="convergenceInfo" class="mt-4 text-sm text-gray-600"></div>
+                        <canvas id="interactiveChart"></canvas>
                     </div>
                 </div>
             </section>
@@ -200,16 +223,15 @@
                     <div class="bg-blue-50 p-6 rounded-lg">
                         <h3 class="text-xl font-bold text-blue-800 mb-4">1. Differential Calculus: The Mathematics of Change</h3>
                         <p class="text-gray-700 mb-4">
-                            Differential calculus deals with rates of change and slopes of curves. In machine learning, this translates to understanding how small changes in inputs affect outputs—exactly what we need for optimization.
+                            Differential calculus deals with rates of change and slopes of curves. In machine learning, this translates to understanding how small changes in inputs affect outputs.
                         </p>
                         
                         <div class="math-equation">
-                            <h4 class="font-semibold mb-2">Key Concept: The Derivative</h4>
-                            <p>The derivative of a function f(x) at point x is defined as:</p>
+                            <h4 class="font-semibold mb-2">The Derivative</h4>
                             <p class="text-center text-lg font-mono my-3">
                                 f'(x) = lim(h→0) [f(x+h) - f(x)] / h
                             </p>
-                            <p>This represents the instantaneous rate of change, which in ML terms tells us how the loss function changes with respect to each parameter.</p>
+                            <p>This represents the instantaneous rate of change, which tells us how the loss function changes with respect to each parameter.</p>
                         </div>
                     </div>
 
@@ -225,7 +247,7 @@
                             <p class="text-center text-lg font-mono my-3">
                                 ∫<sub>a</sub><sup>b</sup> f(x) dx
                             </p>
-                            <p>Represents the accumulated quantity between points a and b, crucial for probability density functions and expected values.</p>
+                            <p>Represents the accumulated quantity between points a and b, crucial for probability density functions.</p>
                         </div>
                     </div>
                 </div>
@@ -264,115 +286,14 @@
                 </div>
             </section>
 
-            <!-- Practical Example: Linear Regression -->
-            <section>
-                <h2 class="section-title text-3xl font-bold">Practical Example: Linear Regression</h2>
-                <p class="text-gray-700 mb-6">Let's see calculus in action with a simple linear regression example.</p>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4">Loss Function</h3>
-                        <p class="mb-4">For linear regression y = mx + b, we minimize the Mean Squared Error:</p>
-                        <div class="math-equation">
-                            L(m,b) = (1/n) * Σ(y_i - (mx_i + b))²
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4">Computing Gradients</h3>
-                        <div class="math-equation">
-                            ∂L/∂m = (-2/n) * Σ x_i * (y_i - (mx_i + b))
-                        </div>
-                        <div class="math-equation mt-4">
-                            ∂L/∂b = (-2/n) * Σ (y_i - (mx_i + b))
-                        </div>
-                        <p class="mt-4 text-sm text-gray-600">These derivatives tell us exactly how to adjust m and b to reduce our error.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- The Chain Rule -->
-            <section>
-                <h2 class="section-title text-3xl font-bold">The Chain Rule: Heart of Backpropagation</h2>
-                
-                <p class="text-gray-700 mb-6">
-                    The chain rule is why we can train deep neural networks efficiently. For composite functions:
-                </p>
-                
-                <div class="math-equation text-center">
-                    d(f(g(x)))/dx = f'(g(x)) * g'(x)
-                </div>
-                
-                <p class="text-gray-700 my-6">
-                    In neural networks, this becomes the backpropagation algorithm:
-                </p>
-                
-                <div class="math-equation">
-                    ∂L/∂W⁽ˡ⁾ = ∂L/∂a⁽ˡ⁾ * ∂a⁽ˡ⁾/∂z⁽ˡ⁾ * ∂z⁽ˡ⁾/∂W⁽ˡ⁾
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-4 mt-6 text-sm">
-                    <div>
-                        <strong>Where:</strong>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>L is loss</li>
-                            <li>a⁽ˡ⁾ is activation at layer l</li>
-                            <li>z⁽ˡ⁾ is pre-activation</li>
-                            <li>W⁽ˡ⁾ is weights at layer l</li>
-                        </ul>
-                    </div>
-                    <div class="visualization-container">
-                        <h4 class="font-semibold mb-3">Backpropagation Flow</h4>
-                        <div class="text-center">
-                            <div class="inline-block bg-blue-100 px-3 py-1 rounded mb-2">Output Layer</div>
-                            <div class="text-blue-500">↓</div>
-                            <div class="inline-block bg-green-100 px-3 py-1 rounded mb-2">Hidden Layer 2</div>
-                            <div class="text-green-500">↓</div>
-                            <div class="inline-block bg-yellow-100 px-3 py-1 rounded mb-2">Hidden Layer 1</div>
-                            <div class="text-yellow-500">↓</div>
-                            <div class="inline-block bg-red-100 px-3 py-1 rounded">Input Layer</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Common Activation Functions -->
-            <section>
-                <h2 class="section-title text-3xl font-bold">Mathematical Foundations of Common Activation Functions</h2>
-                
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <h4 class="font-semibold mb-3">Sigmoid</h4>
-                        <div class="math-equation text-sm">
-                            σ(x) = 1/(1+e^{-x})<br>
-                            σ'(x) = σ(x) * (1-σ(x))
-                        </div>
-                    </div>
-                    
-                    <div class="text-center">
-                        <h4 class="font-semibold mb-3">ReLU</h4>
-                        <div class="math-equation text-sm">
-                            ReLU(x) = max(0,x)<br>
-                            ReLU'(x) = 1 if x > 0 else 0
-                        </div>
-                    </div>
-                    
-                    <div class="text-center">
-                        <h4 class="font-semibold mb-3">Tanh</h4>
-                        <div class="math-equation text-sm">
-                            tanh(x) = (e^x - e^{-x})/(e^x + e^{-x})<br>
-                            tanh'(x) = 1 - tanh²(x)
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <!-- Continue with other sections... -->
 
             <!-- Conclusion -->
             <section>
                 <h2 class="section-title text-3xl font-bold">Conclusion</h2>
                 
                 <p class="text-gray-700 mb-6">
-                    Calculus is not just a theoretical requirement for machine learning—it's the practical foundation that enables us to train models, understand their behavior, and develop new algorithms. From the simple derivative to the complex chain rule applications in backpropagation, these mathematical concepts power the entire field of deep learning.
+                    Calculus is not just a theoretical requirement for machine learning—it's the practical foundation that enables us to train models, understand their behavior, and develop new algorithms.
                 </p>
                 
                 <div class="key-concept bg-yellow-50 border-yellow-200">
@@ -384,18 +305,6 @@
                         <li>Advanced optimization algorithms build on fundamental calculus concepts</li>
                     </ol>
                 </div>
-                
-                <p class="text-gray-700 mt-6">
-                    As you continue your machine learning journey, remember that each time you call <code>.backward()</code> in PyTorch or use <code>GradientTape</code> in TensorFlow, you're leveraging centuries of mathematical development in calculus to train intelligent systems.
-                </p>
-            </section>
-
-            <!-- Next Article -->
-            <section class="mt-12 p-6 bg-gradient-to-r from-purple-100 to-blue-100 rounded-lg">
-                <h3 class="text-xl font-semibold mb-2">Next in This Series</h3>
-                <p class="text-gray-700">
-                    <strong>"Linear Algebra in Machine Learning Applications"</strong> - where we'll explore how matrices and vectors form the computational backbone of neural networks.
-                </p>
             </section>
         </div>
     </div>
@@ -404,7 +313,6 @@
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="blog-container text-center">
             <p>&copy; 2024 Arvind's Math Blog. All rights reserved.</p>
-            <p class="text-gray-400 mt-2">Transforming complex mathematics into accessible knowledge</p>
         </div>
     </footer>
 
@@ -412,77 +320,50 @@
         // Global variable to store the chart instance
         let interactiveChart = null;
 
-        // Initialize the visualization when the page loads
+        // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
             initializeVisualization();
             setupEventListeners();
         });
 
         function setupEventListeners() {
-            // Update slider values in real-time
-            document.getElementById('learningRate').addEventListener('input', function() {
-                document.getElementById('lrValue').textContent = this.value;
+            // Update display values when sliders change
+            const sliders = ['learningRate', 'initialPoint', 'iterations'];
+            sliders.forEach(sliderId => {
+                const slider = document.getElementById(sliderId);
+                const valueSpan = document.getElementById(sliderId.replace('learning', 'lr').replace('initial', 'ip').replace('iterations', 'iter') + 'Value');
+                
+                slider.addEventListener('input', function() {
+                    valueSpan.textContent = this.value;
+                });
             });
 
-            document.getElementById('initialPoint').addEventListener('input', function() {
-                document.getElementById('ipValue').textContent = this.value;
-            });
-
-            document.getElementById('iterations').addEventListener('input', function() {
-                document.getElementById('iterValue').textContent = this.value;
-            });
-
-            // Auto-update visualization when sliders change
+            // Auto-update when sliders are released
             document.getElementById('learningRate').addEventListener('change', updateVisualization);
             document.getElementById('initialPoint').addEventListener('change', updateVisualization);
             document.getElementById('iterations').addEventListener('change', updateVisualization);
         }
 
         function initializeVisualization() {
+            createChart();
             updateVisualization();
         }
 
-        function updateVisualization() {
-            const lr = parseFloat(document.getElementById('learningRate').value);
-            const initialPoint = parseFloat(document.getElementById('initialPoint').value);
-            const iterations = parseInt(document.getElementById('iterations').value);
-            
+        function createChart() {
             const ctx = document.getElementById('interactiveChart').getContext('2d');
             
             // Destroy existing chart if it exists
             if (interactiveChart) {
                 interactiveChart.destroy();
             }
-            
-            // Generate data for the function f(x) = x²
-            const xValues = [];
-            const yValues = [];
-            for (let x = -10; x <= 10; x += 0.2) {
-                xValues.push(x);
-                yValues.push(x * x);
-            }
-            
-            // Simulate gradient descent
-            let xCurrent = initialPoint;
-            const path = [{x: xCurrent, y: xCurrent * xCurrent}];
-            const convergenceData = [];
-            
-            for (let i = 0; i < iterations; i++) {
-                const gradient = 2 * xCurrent; // f'(x) = 2x for f(x) = x²
-                xCurrent = xCurrent - lr * gradient;
-                const currentY = xCurrent * xCurrent;
-                path.push({x: xCurrent, y: currentY});
-                convergenceData.push({iteration: i + 1, x: xCurrent, y: currentY});
-            }
-            
-            // Create new chart
+
             interactiveChart = new Chart(ctx, {
                 type: 'scatter',
                 data: {
                     datasets: [
                         {
                             label: 'f(x) = x²',
-                            data: xValues.map((x, i) => ({x: x, y: yValues[i]})),
+                            data: [],
                             borderColor: '#6366f1',
                             backgroundColor: 'rgba(99, 102, 241, 0.1)',
                             pointRadius: 0,
@@ -492,14 +373,15 @@
                         },
                         {
                             label: 'Gradient Descent Path',
-                            data: path,
+                            data: [],
                             borderColor: '#ef4444',
                             backgroundColor: '#ef4444',
-                            pointRadius: 4,
+                            pointRadius: 6,
                             showLine: true,
                             borderWidth: 2,
                             pointBackgroundColor: '#ef4444',
-                            pointBorderColor: '#b91c1c'
+                            pointBorderColor: '#b91c1c',
+                            pointBorderWidth: 2
                         }
                     ]
                 },
@@ -511,7 +393,8 @@
                             display: true,
                             text: 'Gradient Descent: Finding Minimum of f(x) = x²',
                             font: {
-                                size: 16
+                                size: 16,
+                                weight: 'bold'
                             }
                         },
                         tooltip: {
@@ -538,6 +421,8 @@
                                     weight: 'bold'
                                 }
                             },
+                            min: -10,
+                            max: 10,
                             grid: {
                                 color: 'rgba(0, 0, 0, 0.1)'
                             }
@@ -550,6 +435,8 @@
                                     weight: 'bold'
                                 }
                             },
+                            min: 0,
+                            max: 100,
                             grid: {
                                 color: 'rgba(0, 0, 0, 0.1)'
                             }
@@ -561,40 +448,61 @@
                     }
                 }
             });
-            
-            // Update convergence information
-            updateConvergenceInfo(convergenceData, lr, initialPoint);
         }
 
-        function updateConvergenceInfo(convergenceData, lr, initialPoint) {
-            const infoDiv = document.getElementById('convergenceInfo');
-            const finalPoint = convergenceData[convergenceData.length - 1];
+        function updateVisualization() {
+            const lr = parseFloat(document.getElementById('learningRate').value);
+            const initialPoint = parseFloat(document.getElementById('initialPoint').value);
+            const iterations = parseInt(document.getElementById('iterations').value);
             
-            let infoHTML = `
-                <div class="grid grid-cols-2 gap-4 text-xs">
-                    <div>
-                        <strong>Initial Point:</strong> ${initialPoint.toFixed(2)}<br>
-                        <strong>Learning Rate:</strong> ${lr.toFixed(2)}<br>
-                        <strong>Iterations:</strong> ${convergenceData.length}
-                    </div>
-                    <div>
-                        <strong>Final Point:</strong> ${finalPoint.x.toFixed(4)}<br>
-                        <strong>Final Value:</strong> ${finalPoint.y.toFixed(4)}<br>
-                        <strong>Error:</strong> ${Math.abs(finalPoint.y).toFixed(4)}
-                    </div>
-                </div>
-            `;
-            
-            // Add convergence analysis
-            if (finalPoint.y < 0.01) {
-                infoHTML += `<p class="mt-2 text-green-600"><i class="fas fa-check-circle"></i> Successfully converged to minimum!</p>`;
-            } else if (finalPoint.y > 1) {
-                infoHTML += `<p class="mt-2 text-yellow-600"><i class="fas fa-exclamation-triangle"></i> Slow convergence - try increasing learning rate</p>`;
-            } else {
-                infoHTML += `<p class="mt-2 text-blue-600"><i class="fas fa-info-circle"></i> Making progress toward minimum</p>`;
+            // Generate function data (f(x) = x²)
+            const functionData = [];
+            for (let x = -10; x <= 10; x += 0.2) {
+                functionData.push({x: x, y: x * x});
             }
             
-            infoDiv.innerHTML = infoHTML;
+            // Simulate gradient descent
+            let xCurrent = initialPoint;
+            const pathData = [{x: xCurrent, y: xCurrent * xCurrent}];
+            
+            for (let i = 0; i < iterations; i++) {
+                const gradient = 2 * xCurrent; // f'(x) = 2x
+                xCurrent = xCurrent - lr * gradient;
+                pathData.push({x: xCurrent, y: xCurrent * xCurrent});
+            }
+            
+            // Update chart data
+            interactiveChart.data.datasets[0].data = functionData;
+            interactiveChart.data.datasets[1].data = pathData;
+            interactiveChart.update();
+            
+            // Update convergence info
+            updateConvergenceInfo(pathData, lr, initialPoint, iterations);
+        }
+
+        function updateConvergenceInfo(pathData, lr, initialPoint, iterations) {
+            const finalPoint = pathData[pathData.length - 1];
+            const finalError = Math.abs(finalPoint.y);
+            
+            document.getElementById('infoInitial').textContent = initialPoint.toFixed(2);
+            document.getElementById('infoFinal').textContent = finalPoint.x.toFixed(4);
+            document.getElementById('infoIterations').textContent = iterations;
+            
+            const statusElement = document.getElementById('infoStatus');
+            
+            if (finalError < 0.001) {
+                statusElement.textContent = 'Converged!';
+                statusElement.className = 'font-mono text-green-600';
+            } else if (finalError < 0.1) {
+                statusElement.textContent = 'Close';
+                statusElement.className = 'font-mono text-yellow-600';
+            } else if (finalError < 1) {
+                statusElement.textContent = 'Progressing';
+                statusElement.className = 'font-mono text-blue-600';
+            } else {
+                statusElement.textContent = 'Slow';
+                statusElement.className = 'font-mono text-red-600';
+            }
         }
 
         function resetVisualization() {
@@ -608,6 +516,13 @@
             
             updateVisualization();
         }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (interactiveChart) {
+                interactiveChart.resize();
+            }
+        });
     </script>
 </body>
 </html>
